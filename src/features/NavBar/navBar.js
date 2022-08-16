@@ -1,0 +1,80 @@
+import './navBar.css';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+
+import { setChain } from '../../components/chain/chainSlide';
+import { selectChain } from '../../components/chain/chainSlide';
+import { setVal } from '../../components/validator/validatorSlide';
+
+export function NavBar(props) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const chain = useSelector(selectChain);
+
+    const navHome = () => {
+        dispatch(setChain(""));
+        dispatch(setVal(""));
+        navigate('/');
+    }
+
+    const navChain = () => {
+        dispatch(setVal(""));
+        navigate(`/${chain}`);
+    }
+
+    if (props.props === 'home') {
+        return (
+            <div className='navi-container'>
+                <div className='onPage'>
+                    <nav>
+                        <ul>
+                            <li><a href='#start'>Start</a></li>
+                            <li><a href='#pd'>Project description</a></li>
+                            <li><a href='#ci'>Contact information</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        )
+    } else if (props.props === 'chain') {
+        return (
+            <div className='navi-container'>
+                <div className='offPage'>
+                    <ul>
+                        <li onClick={navHome}>home</li>
+                    </ul>
+                </div>
+                <div className='onPage'>
+                    <nav>
+                        <ul>
+                            <li><a href='#start'>Start</a></li>
+                            <li><a href='#gi'>General Info</a></li>
+                            <li><a href='#si'>Specific Info</a></li>
+                            <li><a href='#val'>Validators</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        )
+    } else {
+        return (
+            <div className='navi-container'>
+                <div className='offPage'>
+                    <ul>
+                        <li onClick={navHome}>home</li>
+                        <li onClick={navChain}>{chain}</li>
+                    </ul>
+                </div>
+                <div className='onPage'>
+                    <nav>
+                        <ul>
+                            <li><a href='#start'>Start</a></li>
+                            <li><a href='#gi'>General Info</a></li>
+                            <li><a href='#si'>Specific Info</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        )
+    }
+}

@@ -1,0 +1,26 @@
+.home {
+    display: flex;
+    flex-direction: column;
+}
+
+.introText {
+    display: flex;
+    background-color: rgb(116, 250, 116);
+    height: 30em;
+    justify-content: center;
+}
+
+.introText p {
+    align-self: center;
+}
+
+.contactInfo {
+    display: flex;
+    background-color: plum;
+    height: 20em;
+    justify-content: center;
+}
+
+.contactInfo p {
+    align-self: center;
+}

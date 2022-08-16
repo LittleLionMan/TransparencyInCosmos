@@ -1,0 +1,71 @@
+.chain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.generalInfo {
+    display: flex;
+    background-color: aqua;
+    height: 20em;
+    width: 100%;
+    justify-content: center;
+}
+
+.generalInfo p {
+    align-self: center;
+}
+
+.specificInfo {
+    display: flex;
+    background-color:aquamarine;
+    height: 20em;
+    width: 100%;
+    justify-content: center;
+}
+
+.specificInfo p {
+    align-self: center;
+}
+
+.validator {
+    display: flex;
+    background-color:blue;
+    height: 20em;
+    width: 100%;
+    justify-content: center;
+    color: white;
+}
+
+.validator table {
+    align-self: center;
+    width: 100%;
+    border: 1px solid white;
+    margin: 0 5em;
+    border-collapse: collapse;
+}
+
+.validator tr {
+    justify-content: space-evenly;
+    border: 1px solid white;
+}
+
+.validator th {
+    background-color: black;
+}
+
+.validator td {
+    border: 1px, solid;
+    border: 1px solid white;
+    height: 5em;
+    text-align: center;
+    background-color: brown;
+}
+
+.valName {
+    text-decoration: underline;
+}
+
+.valName:hover {
+    cursor: pointer;
+}

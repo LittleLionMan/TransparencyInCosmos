@@ -1,0 +1,20 @@
+.generalInfo {
+    height: 30em;
+    background-color: antiquewhite;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.info {
+    height: 20em;
+    width: 40%;
+    background-color: aqua;
+    margin: 1em;
+}
