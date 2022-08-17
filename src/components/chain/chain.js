@@ -1,15 +1,17 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import './chain.css';
+import { ChainTable } from "../../features/chainTable/chainTable";
 
 import { setChain } from './chainSlide';
 import { data } from '../../data/data';
 
+
 export function Chain() {
+    
     const dispatch = useDispatch();
     const { chain } = useParams();
-    const navigate = useNavigate();
     dispatch(setChain(chain));
 
     const objSearch = (arg) => {
@@ -18,11 +20,6 @@ export function Chain() {
                 return data[name][arg];
             }
         }
-    }
-
-    const valHandler = (e) => {
-        const val = e.target.innerHTML;
-        navigate(`/${chain}/${val}`);
     }
     
     return(
@@ -33,33 +30,7 @@ export function Chain() {
             <div className='specificInfo' id='si'>
                 <p>{objSearch("specific")} about {chain}</p>
             </div>
-            <div className='validator' id='val'>
-                <table>
-                    <tr>
-                        <th>Name:</th>
-                        <th>Security:</th>
-                        <th>Decentralization:</th>
-                        <th>Governance:</th>
-                        <th>Commitment:</th>
-                    </tr>
-                    {
-                      objSearch("validator").map((val) => {
-                        return (
-                            <tr>
-                                <td 
-                                    onClick={valHandler}
-                                    className='valName'
-                                >{val}</td>
-                                <td>some%</td>
-                                <td>some%</td>
-                                <td>some%</td>
-                                <td>Text</td>
-                            </tr>
-                        )
-                      })  
-                    }
-                </table>
-            </div>
+            <ChainTable props={chain}/>
         </div>
     )
 }

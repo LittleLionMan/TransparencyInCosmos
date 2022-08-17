@@ -3,12 +3,14 @@ import counterReducer from '../features/counter/counterSlice';
 import searchReducer from '../features/searchBar/searchSlice';
 import chainReducer from '../components/chain/chainSlide';
 import valReducer from '../components/validator/validatorSlide'
+import dataReducer from '../data/dataSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     search: searchReducer,
     chain: chainReducer,
-    val: valReducer
+    val: valReducer,
+    data: dataReducer
   },
 });

@@ -10,26 +10,22 @@ import {
 import { data } from '../../data/data';
 
 const searchIconUrl = 'https://static-assets.codecademy.com/Courses/Learn-Redux/Recipes-App/icons/search.svg';
-const clearIconUrl = 'https://static-assets.codecademy.com/Courses/Learn-Redux/Recipes-App/icons/clear.svg';
-
 
 export const Search = () => {
   const dispatch = useDispatch();
   const searchTerm = useSelector(selectSearchTerm);
   const navigate = useNavigate();
+  let counter = 0;
 
   const onSearchChangeHandler = (e) => {
     dispatch(setSearchTerm(e.target.value));
-  };
-
-  const onSearchTermClearHandler = () => {
-    dispatch(clearSearchTerm());
   };
 
   const searchHandler = () => {
     Object.keys(data).forEach(name => {
       if (name === searchTerm.toLowerCase()) {
         navigate(`/${name}`);
+        dispatch(clearSearchTerm());
       }
     })
   }
@@ -54,21 +50,13 @@ export const Search = () => {
       <datalist id='chains'>
         {
             Object.keys(data).map((chain) => {
+              counter++;
               return (
-                <option value={chain} />
+                <option value={chain} key={counter}  />
               )
             })
         }
       </datalist>
-      {searchTerm.length > 0 && (
-        <button
-          onClick={onSearchTermClearHandler}
-          type="button"
-          id="search-clear-button"
-        >
-          <img src={clearIconUrl} alt="" />
-        </button>
-      )}
     </div>
   );
 };

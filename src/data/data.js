@@ -1,3 +1,4 @@
+
 export const data = {
     atom: {
         name: "Cosmos-hub",
@@ -9,6 +10,6 @@ export const data = {
         name: "Juno",
         general: "some Info",
         specific: "some specific Info",
-        validator: ["val1", "val2"]
+        validator: ["1", "2"]
     }
 }
