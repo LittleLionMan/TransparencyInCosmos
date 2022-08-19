@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import './chainTable.css';
 
 import { loadJunoData } from "../../data/dataSlice";
-import { isLoadingData, selectVals, selectData /* ,hasErrorData */ } from "../../data/dataSlice";
+import { isLoadingData, selectVals, /* selectData ,hasErrorData */ } from "../../data/dataSlice";
 import { selectChain } from "../../components/chain/chainSlide";
 
 
@@ -18,7 +18,7 @@ export const ChainTable = (props) => {
     const vals = useSelector(selectVals);
     const loading = useSelector(isLoadingData);
     //const error = useSelector(hasErrorData);
-    const data = useSelector(selectData);
+    //const data = useSelector(selectData);
     const chainName = useSelector(selectChain);
 
     useEffect(() => {
@@ -33,7 +33,7 @@ export const ChainTable = (props) => {
                 return false;
         }
     }
-    console.log(data);
+
     const valHandler = (e) => {
         const val = e.target.innerHTML;
         navigate(`/${chain}/${val}`);

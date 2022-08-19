@@ -18,11 +18,23 @@
     float: right;
 }
 
-ul {
+.onPage ul {
     list-style-type: none;
 }
 
-li {
+.offPage ul {
+    list-style-type: none;
+}
+
+.onPage li {
+    display: inline;
+    height: 1em;
+    margin-top: 0;
+    padding: 0 1em;
+    color: blue;
+}
+
+.offPage li {
     display: inline;
     height: 1em;
     margin-top: 0;

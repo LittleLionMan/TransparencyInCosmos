@@ -1,5 +1,4 @@
 .generalInfo {
-    height: 30em;
     background-color: antiquewhite;
     align-items: center;
 }
@@ -18,3 +17,8 @@
     background-color: aqua;
     margin: 1em;
 }
+
+.generalInfo ul {
+    list-style-type:square;
+}
+
