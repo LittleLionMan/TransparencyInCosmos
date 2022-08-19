@@ -4,21 +4,25 @@ import { useEffect } from "react";
 
 import './chainTable.css';
 
-import { loadJunoData } from "../../data/dataSlice";
-import { isLoadingData, selectVals, /* selectData ,hasErrorData */ } from "../../data/dataSlice";
+import { loadJunoVals} from "../../data/dataSlice";
+import { isLoadingData, selectVals /* hasErrorData */ } from "../../data/dataSlice";
 import { selectChain } from "../../components/chain/chainSlide";
+import { selectBondedToken } from "../../components/chain/bondedTokenSlice";
 
 
 export const ChainTable = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const chain = props.props;
+    const chain = props.chain;
+    const bondedToken = useSelector(selectBondedToken);
     let counter = 0;
     
     const vals = useSelector(selectVals);
+    const activeVals = vals.filter(value => value.status === "BOND_STATUS_BONDED");
+    
+    
     const loading = useSelector(isLoadingData);
     //const error = useSelector(hasErrorData);
-    //const data = useSelector(selectData);
     const chainName = useSelector(selectChain);
 
     useEffect(() => {
@@ -28,7 +32,9 @@ export const ChainTable = (props) => {
     const findChain = (name) => {
         switch (name) {
             case ('juno'):
-                return loadJunoData();
+                return (
+                    loadJunoVals()
+                    )
             default:
                 return false;
         }
@@ -54,7 +60,8 @@ export const ChainTable = (props) => {
                     <tbody>
                     {
                         loading ? <tr><td>loading</td></tr> :
-                        vals.map(val => {
+                        
+                        activeVals.map(val => {
                                 counter ++;
                                 return (
                                     <tr key={counter}>
@@ -63,7 +70,7 @@ export const ChainTable = (props) => {
                                             className='valName'
                                         >{val.description.moniker}</td>
                                         <td>some%</td>
-                                        <td>{Math.round(val.tokens/1000000)}</td>
+                                        <td>{(Math.round(val.tokens / bondedToken / 100)) / 100}%</td>
                                         <td>some%</td>
                                         <td>Text</td>
                                     </tr>
