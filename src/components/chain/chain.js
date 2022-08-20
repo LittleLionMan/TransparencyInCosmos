@@ -8,26 +8,35 @@ import { ChainTable } from "../../features/chainTable/chainTable";
 import { setChain } from './chainSlide';
 import { setBondedToken, selectBondedToken } from "./bondedTokenSlice";
 import { data } from '../../data/data';
-import { loadJunoBank, selectBank, selectVals /* isLoadingData */} from "../../data/dataSlice";
+import { loadBank, selectBank, selectVals, loadVals /* isLoadingData */} from "../../data/dataSlice";
 
 
 export function Chain() {
     
     const dispatch = useDispatch();
     const { chain } = useParams();
-    dispatch(setChain(chain));
     const bank = useSelector(selectBank);
     const vals = useSelector(selectVals);
     const bondedToken = useSelector(selectBondedToken);
     //const loading = useSelector(isLoadingData);
 
     useEffect(() => {
-
-        const findChain = (name) => {
+        const findLoadVals = (name) => {
             switch (name) {
                 case ('juno'):
                     return (
-                        loadJunoBank(objSearch("denom"))
+                        loadVals(objSearch("loadVals"))
+                        )
+                default:
+                    return false;
+            }
+        }
+
+        const findLoadBank = (name) => {
+            switch (name) {
+                case ('juno'):
+                    return (
+                        loadBank(objSearch('loadBank') + objSearch("denom"))
                         )
                 default:
                     return false;
@@ -42,7 +51,8 @@ export function Chain() {
             }
         }
 
-        dispatch(findChain(chain));
+        dispatch(findLoadBank(chain));
+        dispatch(findLoadVals(chain));
     }, [dispatch, chain]);
 
     const stakeHandler = (arr) => {
@@ -54,10 +64,10 @@ export function Chain() {
         });
         return Math.round(sum/1000000);
     }
+
+    dispatch(setChain(chain));
     dispatch(setBondedToken(stakeHandler(vals)));
     
-
-
     return(
         <div className='chain'>
             <div className='generalInfo' id='gi'>
@@ -69,9 +79,7 @@ export function Chain() {
             <div className='specificInfo' id='si'>
                 <p>about {chain}</p>
             </div>
-            <ChainTable 
-                chain={chain}
-            />
+            <ChainTable />
         </div>
     )
 }

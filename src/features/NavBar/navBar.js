@@ -2,9 +2,9 @@ import './navBar.css';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 
-import { setChain } from '../../components/chain/chainSlide';
+import { clearChain } from '../../components/chain/chainSlide';
 import { selectChain } from '../../components/chain/chainSlide';
-import { setVal } from '../../components/validator/validatorSlide';
+import { clearVal } from '../../components/validator/validatorSlide';
 
 export function NavBar(props) {
     const dispatch = useDispatch();
@@ -12,13 +12,13 @@ export function NavBar(props) {
     const chain = useSelector(selectChain);
 
     const navHome = () => {
-        dispatch(setChain(""));
-        dispatch(setVal(""));
+        dispatch(clearChain());
+        dispatch(clearVal());
         navigate('/');
     }
 
     const navChain = () => {
-        dispatch(setVal(""));
+        dispatch(clearVal(""));
         navigate(`/${chain}`);
     }
 
