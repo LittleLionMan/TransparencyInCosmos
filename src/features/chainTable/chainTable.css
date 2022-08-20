@@ -28,7 +28,8 @@
     border: 1px solid white;
     height: 5em;
     text-align: center;
-    background-color: brown;
+    color: black;
+    background-color: rgb(244, 153, 153);
 }
 
 .valName {

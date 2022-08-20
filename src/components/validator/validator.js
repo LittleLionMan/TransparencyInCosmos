@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import { selectVals, selectDelegations, loadDelegations, isLoadingData } from "../../data/dataSlice";
-
-//import { setVal } from './validatorSlide';
 import { selectBondedToken } from "../chain/bondedTokenSlice";
 import { selectChain } from "../chain/chainSlide";
 import { data } from "../../data/data";
@@ -103,7 +101,7 @@ export function Validator() {
                     <h1>Dezentralization</h1>
                     <ul>
                         <li>Stake: {loading ? "loading " : (Math.round(delegatedTokens * 10000/bondedToken) / 100)+ " %"} </li>
-                        <li>Individual Delegations: {loading ? "loading" : delegations.delegation_responses.length + " (>1 Coin: " + moreThanOne.length + ")"}</li>
+                        <li>Individual Delegations: {loading ? "loading" : delegations.delegation_responses.length + " (>1 Coin: " + Math.round(100 * moreThanOne.length/delegations.delegation_responses.length) + " %)"}</li>
                         <li>Average Delegation: {loading ? "loading" : Math.round(delegatedTokens/delegations.delegation_responses.length) + " Coins (>1 Coin: " + Math.round(countHandler(moreThanOne)/moreThanOne.length) + " Coins)"}</li>
                         <li>Largest Delegation: {loading ? "loading " : Math.round(Math.max(...arrHandler(delegations.delegation_responses)) / 1000000) + " Coins"}</li>
                     </ul>

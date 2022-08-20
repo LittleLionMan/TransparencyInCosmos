@@ -18,8 +18,7 @@ export const ChainTable = () => {
     
     const vals = useSelector(selectVals);
     const activeVals = vals.filter(value => value.status === "BOND_STATUS_BONDED");
-    
-    
+    const sVals = activeVals.sort(function(a, b){return parseInt(b.tokens) - parseInt(a.tokens)});
     const loading = useSelector(isLoadingData);
     //const error = useSelector(hasErrorData);
 
@@ -29,6 +28,31 @@ export const ChainTable = () => {
         navigate(`/${chain}/${val}`);
     }
 
+    const decentralize = (val) => {
+        let percent = 0;
+        let counter = 'red';
+        let threshold = 'red';
+        function check (element) {
+            if (val === element) {
+                percent+=((element.tokens/10000) / bondedToken);
+                threshold = counter;
+                return threshold;
+            } else {
+                percent+=((element.tokens/10000) / bondedToken);
+                if (percent > 33 && percent < 66) {
+                    counter = 'yellow';
+                } else if (percent > 66) {
+                    counter = 'green';
+                }
+            }
+        }
+        
+        sVals.some(check);
+        return {backgroundColor: threshold};
+        
+    }
+    console.log(decentralize(sVals[8]))
+    //console.log(sVals);
     return (
         <div className='validator' id='val'>
                 <table>
@@ -54,7 +78,9 @@ export const ChainTable = () => {
                                             className='valName'
                                         >{val.description.moniker}</td>
                                         <td>some%</td>
-                                        <td>{(Math.round(val.tokens / bondedToken / 100)) / 100}%</td>
+                                        <td
+                                            style={decentralize(val)}
+                                        >{(Math.round(val.tokens / bondedToken / 100)) / 100}% ({sVals.indexOf(val) + 1})</td>
                                         <td>some%</td>
                                         <td>Text</td>
                                     </tr>
