@@ -6,6 +6,7 @@
 
 .generalInfo {
     display: flex;
+    flex-direction: column;
     background-color: aqua;
     height: 20em;
     width: 100%;

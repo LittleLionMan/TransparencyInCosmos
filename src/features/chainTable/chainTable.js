@@ -12,13 +12,13 @@ import { selectChain } from "../../components/chain/chainSlide";
 export const ChainTable = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const chain = selectChain;
+    const chain = useSelector(selectChain);
     const bondedToken = useSelector(selectBondedToken);
     let counter = 0;
     
     const vals = useSelector(selectVals);
     const activeVals = vals.filter(value => value.status === "BOND_STATUS_BONDED");
-    const sVals = activeVals.sort(function(a, b){return parseInt(b.tokens) - parseInt(a.tokens)});
+    activeVals.sort(function(a, b){return parseInt(b.tokens) - parseInt(a.tokens)});
     const loading = useSelector(isLoadingData);
     //const error = useSelector(hasErrorData);
 
@@ -45,14 +45,25 @@ export const ChainTable = () => {
                     counter = 'green';
                 }
             }
-        }
-        
-        sVals.some(check);
-        return {backgroundColor: threshold};
+        }  
+    activeVals.some(check);
+
+    return {backgroundColor: threshold};
         
     }
-    console.log(decentralize(sVals[8]))
-    //console.log(sVals);
+
+    const shuffleArray = array => {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const temp = array[i];
+          array[i] = array[j];
+          array[j] = temp;
+        }
+    }
+    
+    const cVals = [...activeVals];
+    shuffleArray(cVals);
+
     return (
         <div className='validator' id='val'>
                 <table>
@@ -69,7 +80,7 @@ export const ChainTable = () => {
                     {
                         loading ? <tr><td>loading</td></tr> :
                         
-                        activeVals.map(val => {
+                        cVals.map(val => {
                                 counter ++;
                                 return (
                                     <tr key={counter}>
@@ -80,7 +91,7 @@ export const ChainTable = () => {
                                         <td>some%</td>
                                         <td
                                             style={decentralize(val)}
-                                        >{(Math.round(val.tokens / bondedToken / 100)) / 100}% ({sVals.indexOf(val) + 1})</td>
+                                        >{(Math.round(val.tokens / bondedToken / 100)) / 100}% ({activeVals.indexOf(val) + 1})</td>
                                         <td>some%</td>
                                         <td>Text</td>
                                     </tr>

@@ -1,5 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+export const coingeckoData = createAsyncThunk(
+    "data/coingeckoData",
+    async (cgId) => {
+        const response = await fetch(`https://api.coingecko.com/api/v3/coins/${cgId}`);
+        const jsonResponse = await response.json();
+        return jsonResponse; 
+    }
+)
+
 export const loadVals = createAsyncThunk(
     "data/loadVals",
     async (loadVals) => {
@@ -30,7 +39,21 @@ export const loadDelegations = createAsyncThunk(
 const dataSlice = createSlice({
     name: "data",
     initialState: {
-        vals: {validators: []},
+        coingeckoData: {
+            description: {},
+            links: {
+                homepage: []
+            },
+            market_data: {
+                current_price: {
+                    usd: 0
+                }
+            }
+        },
+        vals: {
+            validators: [],
+            operator_address: ""
+        },
         bank: {
             amount: {
                 amount: 0
@@ -43,6 +66,19 @@ const dataSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+            .addCase(coingeckoData.pending, (state) => {
+            state.isLoadingData = true;
+            state.hasErrorData = false;
+             })
+            .addCase(coingeckoData.fulfilled, (state, action) => {
+                state.isLoadingData = false;
+                state.hasErrorData = false;
+                state.coingeckoData = action.payload;
+            })
+            .addCase(coingeckoData.rejected, (state) => {
+                state.isLoadingData = false;
+                state.hasErrorData = true;
+            })
             .addCase(loadVals.pending, (state) => {
                 state.isLoadingData = true;
                 state.hasErrorData = false;
@@ -85,9 +121,10 @@ const dataSlice = createSlice({
     }
 });
 
-export const selectVals = (state) => state.data.vals.validators;
 export const isLoadingData = (state) => state.data.isLoadingData;
 export const hasErrorData = (state) => state.data.hasErrorData;
+export const selectcoingeckoData = (state) => state.data.coingeckoData;
+export const selectVals = (state) => state.data.vals.validators;
 export const selectBank = (state) => state.data.bank;
 export const selectDelegations = (state) => state.data.delegations;
 

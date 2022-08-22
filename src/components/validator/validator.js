@@ -4,33 +4,22 @@ import { useEffect } from "react";
 
 import { selectVals, selectDelegations, loadDelegations, isLoadingData } from "../../data/dataSlice";
 import { selectBondedToken } from "../chain/bondedTokenSlice";
-import { selectChain } from "../chain/chainSlide";
+import { setChain } from "../chain/chainSlide";
 import { data } from "../../data/data";
 
 import './validator.css';
 
 export function Validator() {
     const dispatch = useDispatch();
-    const { validator } = useParams();
+    const { chain, validator} = useParams();
     const vals = useSelector(selectVals);
-    const chain = useSelector(selectChain)
     const bondedToken = useSelector(selectBondedToken);
     const val = (vals.find(val => val.description.moniker === validator));
     const delegations = useSelector(selectDelegations);
     const loading = useSelector(isLoadingData);
+    dispatch(setChain(chain));
 
     useEffect(() => {
-        const findDelegations = (name, valAdd) => {
-            switch (name) {
-                case ('juno'):
-                    return (
-                        loadDelegations(objSearch('loadDelegations') + valAdd + "/delegations?pagination.limit=100000")
-                        )
-                default:
-                    return false;
-            }
-        }
-
         const objSearch = (arg) => {
             for (let name in data) {
                 if (name === chain) {
@@ -38,8 +27,7 @@ export function Validator() {
                 }
             }
         }
-
-        dispatch(findDelegations(chain, val.operator_address));
+        dispatch(loadDelegations(objSearch('loadDelegations') + val.operator_address + "/delegations?pagination.limit=100000"));
     }, [chain, dispatch, val.operator_address]);
 
     

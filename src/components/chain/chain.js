@@ -8,7 +8,7 @@ import { ChainTable } from "../../features/chainTable/chainTable";
 import { setChain } from './chainSlide';
 import { setBondedToken, selectBondedToken } from "./bondedTokenSlice";
 import { data } from '../../data/data';
-import { loadBank, selectBank, selectVals, loadVals /* isLoadingData */} from "../../data/dataSlice";
+import { loadBank, selectBank, selectVals, loadVals, coingeckoData, selectcoingeckoData} from "../../data/dataSlice";
 
 
 export function Chain() {
@@ -17,32 +17,11 @@ export function Chain() {
     const { chain } = useParams();
     const bank = useSelector(selectBank);
     const vals = useSelector(selectVals);
+    const cgData = useSelector(selectcoingeckoData);
     const bondedToken = useSelector(selectBondedToken);
-    //const loading = useSelector(isLoadingData);
 
+    
     useEffect(() => {
-        const findLoadVals = (name) => {
-            switch (name) {
-                case ('juno'):
-                    return (
-                        loadVals(objSearch("loadVals"))
-                        )
-                default:
-                    return false;
-            }
-        }
-
-        const findLoadBank = (name) => {
-            switch (name) {
-                case ('juno'):
-                    return (
-                        loadBank(objSearch('loadBank') + objSearch("denom"))
-                        )
-                default:
-                    return false;
-            }
-        }
-
         const objSearch = (arg) => {
             for (let name in data) {
                 if (name === chain) {
@@ -51,8 +30,9 @@ export function Chain() {
             }
         }
 
-        dispatch(findLoadBank(chain));
-        dispatch(findLoadVals(chain));
+        dispatch(loadBank(objSearch('loadBank') + objSearch("denom")));
+        dispatch(loadVals(objSearch("loadVals")));
+        dispatch(coingeckoData(objSearch("cgId")));
     }, [dispatch, chain]);
 
     const stakeHandler = (arr) => {
@@ -71,7 +51,12 @@ export function Chain() {
     return(
         <div className='chain'>
             <div className='generalInfo' id='gi'>
+                <h5>{cgData.description.en}</h5>
                 <ul>
+                    <li><a href={cgData.links.homepage[0]}>Website </a></li>
+                    <li>Price: {cgData.market_data.current_price.usd}$</li>
+                    <li>Change in 24h: {Math.round(cgData.market_data.price_change_percentage_24h * 100) / 100}%</li>
+                    <li>Marketcap: {cgData.market_data.current_price.usd * Math.round(bank.amount.amount / 1000000)}$ (Rank: {cgData.market_data.market_cap_rank})</li>
                     <li>Supply: {Math.round(bank.amount.amount / 1000000)} Coins</li>
                     <li>Staked: {bondedToken} Coins ({Math.round(bondedToken / (bank.amount.amount / 1000000000))/10}%)</li>
                 </ul>
