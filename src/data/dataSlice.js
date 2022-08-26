@@ -18,8 +18,17 @@ export const loadVals = createAsyncThunk(
     }
 )
 
+export const loadCommunityPool = createAsyncThunk(
+    "data/loadCommunityPool",
+    async (loadCommunityPool) => {
+        const response = await fetch(loadCommunityPool);
+        const jsonResponse = await response.json();
+        return jsonResponse; 
+    }
+)
+
 export const loadBank = createAsyncThunk(
-    "data/loadJunoBank",
+    "data/loadBank",
     async (loadBank) => {
         const response = await fetch(loadBank);
         const jsonResponse = await response.json();
@@ -28,7 +37,7 @@ export const loadBank = createAsyncThunk(
 )
 
 export const loadDelegations = createAsyncThunk(
-    "data/loadJunoDelegations",
+    "data/loadDelegations",
     async (loadDelegations) => {
         const response = await fetch(loadDelegations);
         const jsonResponse = await response.json();
@@ -58,6 +67,12 @@ const dataSlice = createSlice({
             amount: {
                 amount: 0
             }
+        },
+        communityPool: {
+            pool: [
+                {amount: 0},
+                {amount: 0}
+            ]
         },
         delegations: {delegation_responses: []},
         isLoadingData: false,
@@ -89,6 +104,19 @@ const dataSlice = createSlice({
                 state.vals = action.payload;
             })
             .addCase(loadVals.rejected, (state) => {
+                state.isLoadingData = false;
+                state.hasErrorData = true;
+            })
+            .addCase(loadCommunityPool.pending, (state) => {
+                state.isLoadingData = true;
+                state.hasErrorData = false;
+            })
+            .addCase(loadCommunityPool.fulfilled, (state, action) => {
+                state.isLoadingData = false;
+                state.hasErrorData = false;
+                state.communityPool = action.payload;
+            })
+            .addCase(loadCommunityPool.rejected, (state) => {
                 state.isLoadingData = false;
                 state.hasErrorData = true;
             })
@@ -127,5 +155,6 @@ export const selectcoingeckoData = (state) => state.data.coingeckoData;
 export const selectVals = (state) => state.data.vals.validators;
 export const selectBank = (state) => state.data.bank;
 export const selectDelegations = (state) => state.data.delegations;
+export const selectCommunityPool = (state) => state.data.communityPool;
 
 export default dataSlice.reducer;

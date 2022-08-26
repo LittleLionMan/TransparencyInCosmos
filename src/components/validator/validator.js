@@ -80,7 +80,7 @@ export function Validator() {
                     <li>Details: {val.description.details}</li>                  
                     <li>Stake: {loading ? "loading " : delegatedTokens + " Coins"}</li>
                     <li>Address: {val.operator_address}</li>
-                    <li>Commission: {val.commission.commission_rates.rate * 100 + " %"}</li>
+                    <li>Commission: {Math.round(val.commission.commission_rates.rate * 100) + " %"}</li>
                 </ul>
             </div>
             <div className='container' id="si">
