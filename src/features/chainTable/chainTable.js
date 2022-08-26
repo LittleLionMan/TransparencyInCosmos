@@ -24,8 +24,9 @@ export const ChainTable = () => {
 
     const valHandler = (e) => {
         const val = e.target.innerHTML;
+        const cVal = val.replaceAll("%", "&");
         dispatch(setVal(val));
-        navigate(`/${chain}/${val}`);
+        navigate(`/${chain}/${cVal}`);
     }
 
     const decentralize = (val) => {

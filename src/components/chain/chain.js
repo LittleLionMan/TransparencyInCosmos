@@ -56,7 +56,7 @@ export function Chain() {
                     <li><a href={cgData.links.homepage[0]}>Website </a></li>
                     <li>Price: {cgData.market_data.current_price.usd}$</li>
                     <li>Change in 24h: {Math.round(cgData.market_data.price_change_percentage_24h * 100) / 100}%</li>
-                    <li>Marketcap: {cgData.market_data.current_price.usd * Math.round(bank.amount.amount / 1000000)}$ (Rank: {cgData.market_data.market_cap_rank})</li>
+                    <li>Marketcap: {Math.round(cgData.market_data.current_price.usd * bank.amount.amount / 1000000)}$ (Rank: {cgData.market_data.market_cap_rank})</li>
                     <li>Supply: {Math.round(bank.amount.amount / 1000000)} Coins</li>
                     <li>Staked: {bondedToken} Coins ({Math.round(bondedToken / (bank.amount.amount / 1000000000))/10}%)</li>
                 </ul>

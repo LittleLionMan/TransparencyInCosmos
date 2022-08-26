@@ -5,16 +5,18 @@ import { useEffect } from "react";
 import { selectVals, selectDelegations, loadDelegations, isLoadingData } from "../../data/dataSlice";
 import { selectBondedToken } from "../chain/bondedTokenSlice";
 import { setChain } from "../chain/chainSlide";
+import { selectVal } from "./validatorSlide";
 import { data } from "../../data/data";
 
 import './validator.css';
 
 export function Validator() {
     const dispatch = useDispatch();
-    const { chain, validator} = useParams();
+    const { chain } = useParams();
+    const aVal = useSelector(selectVal);
     const vals = useSelector(selectVals);
     const bondedToken = useSelector(selectBondedToken);
-    const val = (vals.find(val => val.description.moniker === validator));
+    const val = (vals.find(val => val.description.moniker === aVal));
     const delegations = useSelector(selectDelegations);
     const loading = useSelector(isLoadingData);
     dispatch(setChain(chain));
