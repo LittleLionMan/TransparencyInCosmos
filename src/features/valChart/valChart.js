@@ -100,7 +100,7 @@ export function ValChart({aVals, bToken, loading}) {
             textAnchor={textAnchor}
             fill="#999"
           >
-            {`(Rate ${(percent * 100).toFixed(2)}%)`}
+            {`${payload.vals.length} (Rate ${(percent * 100).toFixed(2)}%)`}
           </text>
           <foreignObject 
             width={150} 
