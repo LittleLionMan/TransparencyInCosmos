@@ -100,7 +100,7 @@ export function ValChart({aVals, bToken, loading}) {
             textAnchor={textAnchor}
             fill="#999"
           >
-            {`${payload.vals.length} (Rate ${(percent * 100).toFixed(2)}%)`}
+            {`${payload.vals[0] !== "..." ? payload.vals.length : payload.vals.length - 1} (Rate ${(percent * 100).toFixed(2)}%)`}
           </text>
           <foreignObject 
             width={150} 
@@ -128,6 +128,56 @@ export function ValChart({aVals, bToken, loading}) {
     );
   };
 
+  const renderActiveShape1 = (props) => {
+    const {
+      cx,
+      cy,
+      innerRadius,
+      outerRadius,
+      startAngle,
+      endAngle,
+      payload,
+    } = props;
+
+    data.forEach((element, index) => {
+      if (element.vals.includes(payload.description.moniker)) {
+        switch(index) {
+          case 0:
+            setActiveIndex(0);
+            break;
+            case 1:
+              setActiveIndex(1);
+              break;
+              case 2:
+                setActiveIndex(2);
+                break;
+              case 3:
+                setActiveIndex(3);
+                break;
+          default:
+            setActiveIndex(4);
+        }
+      }
+    })
+
+    return (
+      <g>
+        <text x={cx} y={cy} dy={-260} textAnchor="middle" fill={"black"}>
+          {payload.description.moniker} ({Math.round(payload.tokens/bToken/100)/100}%)
+        </text>
+        <Sector
+          cx={cx}
+          cy={cy}
+          innerRadius={innerRadius}
+          outerRadius={outerRadius}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          fill={"blue"}
+        />
+      </g>
+    )  
+  }
+
   const [activeIndex, setActiveIndex] = useState(0);
   const onPieEnter = useCallback(
     (_, index) => {
@@ -136,9 +186,19 @@ export function ValChart({aVals, bToken, loading}) {
     [setActiveIndex]
   );
 
+  const [activeIndex1, setActiveIndex1] = useState(-1);
+  const onPieEnter1 = useCallback(
+    (_, index) => {
+      setActiveIndex1(index);
+    },
+    [setActiveIndex1]
+  );
+
   return (
     <PieChart width={1200} height={850}>
       <Pie 
+        activeIndex={activeIndex1}
+        activeShape={renderActiveShape1}
         data={valsCopy}
         cx={600}
         cy={300}
@@ -148,6 +208,7 @@ export function ValChart({aVals, bToken, loading}) {
         outerRadius={199}
         fill="grey"
         dataKey="tokens"
+        onMouseOver={onPieEnter1}
       />
       <Pie
         activeIndex={activeIndex}
@@ -161,7 +222,7 @@ export function ValChart({aVals, bToken, loading}) {
         outerRadius={240}
         fill="black"
         dataKey="value"
-        onMouseEnter={onPieEnter}
+        onMouseOver={onPieEnter}
       />
     </PieChart>
   );
