@@ -1,6 +1,6 @@
 .validator {
     display: flex;
-    background-color:blue;
+    background-color: rgb(239, 217, 217);
     width: 100%;
     justify-content: center;
     color: white;
@@ -17,6 +17,11 @@
 .validator tr {
     justify-content: space-evenly;
     border: 1px solid white;
+}
+
+.validator {
+    display: flex;
+    flex-direction: column;
 }
 
 .validator th {

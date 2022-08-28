@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import './chainTable.css';
+import { ValChart } from "../valChart/valChart";
 
 import { isLoadingData, selectVals /* hasErrorData */ } from "../../data/dataSlice";
 import { setVal } from "../../components/validator/validatorSlide";
@@ -20,7 +21,6 @@ export const ChainTable = () => {
     const activeVals = vals.filter(value => value.status === "BOND_STATUS_BONDED");
     activeVals.sort(function(a, b){return parseInt(b.tokens) - parseInt(a.tokens)});
     const loading = useSelector(isLoadingData);
-    //const error = useSelector(hasErrorData);
 
     const valHandler = (e) => {
         const val = e.target.innerHTML;
@@ -61,12 +61,12 @@ export const ChainTable = () => {
           array[j] = temp;
         }
     }
-    
     const cVals = [...activeVals];
     shuffleArray(cVals);
 
     return (
         <div className='validator' id='val'>
+                <ValChart aVals={activeVals} bToken={bondedToken} loading={loading}/>
                 <table>
                     <thead>
                         <tr>
