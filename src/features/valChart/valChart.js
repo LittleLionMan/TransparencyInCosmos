@@ -56,6 +56,9 @@ export function ValChart({aVals, bToken, loading}) {
     const ex = mx + (cos >= 0 ? 1 : -1) * 22;
     const ey = my;
     const textAnchor = cos >= 0 ? "start" : "end";
+
+    setActiveIndex1(-1);
+
   
     return (
       <g>

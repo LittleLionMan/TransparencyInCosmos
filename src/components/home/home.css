@@ -16,11 +16,16 @@
 
 .contactInfo {
     display: flex;
-    background-color: plum;
-    height: 20em;
-    justify-content: center;
+    background-color: white;
+    height: 15em;
+    justify-content: space-around;
 }
 
-.contactInfo p {
+.contactInfo a {
     align-self: center;
+}
+
+#twitter {
+    height: 5em;
+    width: 6em;
 }
