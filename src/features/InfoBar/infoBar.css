@@ -1,0 +1,16 @@
+button {
+    float: right;
+    margin-right: 2em;
+}
+
+.InfoBar-container {
+    height: 100%;
+    width: 20em;
+    position: absolute;
+    border: 1px, black, double;
+    background-color: blue;
+    text-align: center;
+    z-index: 99;
+}
+
+

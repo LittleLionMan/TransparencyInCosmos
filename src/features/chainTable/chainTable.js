@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import './chainTable.css';
 import { ValChart } from "../valChart/valChart";
+import { InfoBar } from "../InfoBar/infoBar";
 
 import { isLoadingData, selectVals /* hasErrorData */ } from "../../data/dataSlice";
 import { setVal } from "../../components/validator/validatorSlide";
@@ -66,7 +67,10 @@ export const ChainTable = () => {
 
     return (
         <div className='validator' id='val'>
-                <ValChart aVals={activeVals} bToken={bondedToken} loading={loading}/>
+                <div>
+                    <InfoBar props="valChartI"/>
+                    <ValChart aVals={activeVals} bToken={bondedToken} loading={loading}/>
+                </div>
                 <table>
                     <thead>
                         <tr>

@@ -2,7 +2,6 @@ import React, { useCallback, useState } from "react";
 import { PieChart, Pie, Sector } from 'recharts';
 import "./valChart.css";
 
-
 export function ValChart({aVals, bToken, loading}) {
   let valsCopy = JSON.parse(JSON.stringify(aVals));
   if (!loading) {
