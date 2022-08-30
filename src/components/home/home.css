@@ -5,9 +5,25 @@
 
 .introText {
     display: flex;
-    background-color: rgb(116, 250, 116);
+    flex-direction: column;
+    background-color: white;
     height: 30em;
-    justify-content: center;
+    padding: 5em;
+    margin-right: 10em;
+    margin-left: 10em;
+}
+
+#quote {
+    align-self: flex-end;
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+#author {
+    align-self: flex-end;
+    margin-top: 0;
+    font-weight: bold;
+    font-size: 12px;
 }
 
 .introText p {
