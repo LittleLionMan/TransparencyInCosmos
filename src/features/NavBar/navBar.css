@@ -4,7 +4,7 @@
     top: 0;
     left: 0;
     position: fixed;
-    background-color: #fff;
+    background-color: rgb(61, 243, 231);
     z-index: 9999;
     overflow: visible;
     transition: transform 0.3s ease 0s, background-color 0.3s ease 0s, opacity 0.3s ease 0s, box-shadow 0.3s ease 0s, border-color 0.3s ease 0s, margin 0.25s ease-out 0s;
