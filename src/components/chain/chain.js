@@ -8,7 +8,7 @@ import { ChainTable } from "../../features/chainTable/chainTable";
 import { setChain } from './chainSlide';
 import { setBondedToken, selectBondedToken } from "./bondedTokenSlice";
 import { data } from '../../data/data';
-import { loadBank, selectBank, selectVals, loadVals, coingeckoData, selectcoingeckoData, selectCommunityPool, loadCommunityPool} from "../../data/dataSlice";
+import { loadBank, selectBank, selectVals, loadVals, coingeckoData, selectcoingeckoData, selectCommunityPool, loadCommunityPool, loadProposals} from "../../data/dataSlice";
 
 
 export function Chain() {
@@ -34,6 +34,7 @@ export function Chain() {
         dispatch(loadVals(objSearch("loadVals")));
         dispatch(loadCommunityPool(objSearch("loadCommunityPool")));
         dispatch(coingeckoData(objSearch("cgId")));
+        dispatch(loadProposals(objSearch('loadProposals')));
         
     }, [dispatch, chain]);
 

@@ -8,7 +8,6 @@ export function InfoBar (props) {
     let arr = []
     info.forEach(element => {
         if (element.name === keyI) {
-            console.log(element.data)
             arr = element.data
         }
     })
@@ -22,7 +21,6 @@ export function InfoBar (props) {
                 <div className="InfoBar-container">
                     {
                         arr.map(element => {
-                            console.log(element)
                             let keys = Object.keys(element);
                             let key = keys[0];
                             switch(key) {
