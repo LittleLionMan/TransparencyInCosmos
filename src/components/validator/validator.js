@@ -75,7 +75,7 @@ export function Validator() {
     const delegatedTokens = countHandler(delegations.delegation_responses);
     const moreThanOne = delegations.delegation_responses.filter(element => element.balance.amount > 1000000);
     console.log(valI.result.operator_address);
-    const valAddress = valI.result.operator_address;
+    //const valAddress = valI.result.operator_address;
 
  
     
