@@ -2,9 +2,8 @@ import './navBar.css';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 
-import { clearChain } from '../../components/chain/chainSlide';
-import { selectChain } from '../../components/chain/chainSlide';
-import { clearVal } from '../../components/validator/validatorSlide';
+import { clearChain, selectChain } from '../../pages/chain/chainSlide';
+import { clearVal } from '../../pages/validator/validatorSlide';
 
 export function NavBar(props) {
     const dispatch = useDispatch();
