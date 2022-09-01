@@ -7,6 +7,7 @@ import { selectBondedToken } from "../chain/bondedTokenSlice";
 import { setChain } from "../chain/chainSlide";
 import { selectVal } from "./validatorSlide";
 import { data } from "../../data/data";
+import { objSearch } from "../../functions/helperFunctions";
 
 import './validator.css';
 
@@ -24,16 +25,8 @@ export function Validator() {
     
 
     useEffect(() => {
-        const objSearch = (arg) => {
-            for (let name in data) {
-                if (name === chain) {
-                    return data[name][arg];
-                }
-            }
-        }
-        dispatch(loadValI(objSearch('loadValI') + val.operator_address))
-        dispatch(loadDelegations(objSearch('loadDelegations') + val.operator_address + "/delegations?pagination.limit=500000"));
-        
+        dispatch(loadValI(objSearch('loadValI', data, chain) + val.operator_address))
+        dispatch(loadDelegations(objSearch('loadDelegations', data, chain) + val.operator_address + "/delegations?pagination.limit=100000"));
     }, [chain, dispatch, val.operator_address]);
 
     

@@ -6,9 +6,10 @@ import { ValChart } from "../valChart/valChart";
 import { InfoBar } from "../InfoBar/infoBar";
 
 import { isLoadingData, selectVals, selectProposals /* hasErrorData */ } from "../../data/dataSlice";
-import { setVal } from "../../components/validator/validatorSlide";
-import { selectBondedToken } from "../../components/chain/bondedTokenSlice";
-import { selectChain } from "../../components/chain/chainSlide";
+import { setVal } from "../../pages/validator/validatorSlide";
+import { selectBondedToken } from "../../pages/chain/bondedTokenSlice";
+import { selectChain } from "../../pages/chain/chainSlide";
+
 
 
 export const ChainTable = () => {

@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
-import searchReducer from '../features/searchBar/searchSlice';
-import chainReducer from '../components/chain/chainSlide';
-import bondedTokenReducer from '../components/chain/bondedTokenSlice';
-import valReducer from '../components/validator/validatorSlide'
+import counterReducer from '../functions/counter/counterSlice';
+import searchReducer from '../components/searchBar/searchSlice';
+import chainReducer from '../pages/chain/chainSlide';
+import bondedTokenReducer from '../pages/chain/bondedTokenSlice';
+import valReducer from '../pages/validator/validatorSlide'
 import dataReducer from '../data/dataSlice';
 
 export const store = configureStore({

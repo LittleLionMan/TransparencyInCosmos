@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import './chain.css';
-import { ChainTable } from "../../features/chainTable/chainTable";
-
+import { ChainTable } from "../../components/chainTable/chainTable";
 import { setChain } from './chainSlide';
 import { setBondedToken, selectBondedToken } from "./bondedTokenSlice";
 import { data } from '../../data/data';
 import { loadBank, selectBank, selectVals, loadVals, coingeckoData, selectcoingeckoData, selectCommunityPool, loadCommunityPool, loadProposals} from "../../data/dataSlice";
+
+import { objSearch } from "../../functions/helperFunctions";
 
 
 export function Chain() {
@@ -22,20 +23,11 @@ export function Chain() {
     const bondedToken = useSelector(selectBondedToken);
     
     useEffect(() => {
-        const objSearch = (arg) => {
-            for (let name in data) {
-                if (name === chain) {
-                    return data[name][arg];
-                }
-            }
-        }
-
-        dispatch(loadBank(objSearch('loadBank') + objSearch("denom")));
-        dispatch(loadVals(objSearch("loadVals")));
-        dispatch(loadCommunityPool(objSearch("loadCommunityPool")));
-        dispatch(coingeckoData(objSearch("cgId")));
-        dispatch(loadProposals(objSearch('loadProposals')));
-        
+        dispatch(loadBank(objSearch('loadBank', data, chain) + objSearch("denom", data, chain)));
+        dispatch(loadVals(objSearch("loadVals", data, chain)));
+        dispatch(loadCommunityPool(objSearch("loadCommunityPool", data, chain)));
+        dispatch(coingeckoData(objSearch("cgId", data, chain)));
+        dispatch(loadProposals(objSearch('loadProposals', data, chain)));  
     }, [dispatch, chain]);
 
     const stakeHandler = (arr) => {

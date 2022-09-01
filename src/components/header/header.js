@@ -1,10 +1,10 @@
 import './header.css';
 import { useSelector } from 'react-redux';
 
-import { Search } from '../../features/searchBar/search';
-import { selectChain } from '../chain/chainSlide';
-import { selectVal } from '../validator/validatorSlide';
-import { NavBar } from '../../features/NavBar/navBar';
+import { Search } from '../../components/searchBar/search';
+import { selectChain } from '../../pages/chain/chainSlide';
+import { selectVal } from '../../pages/validator/validatorSlide';
+import { NavBar } from '../NavBar/navBar';
 
 export function Header() {
     const chain = useSelector(selectChain);

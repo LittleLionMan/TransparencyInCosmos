@@ -5,9 +5,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import { Header } from '../components/header/header';
-import { Home } from '../components/home/home';
-import { Chain } from '../components/chain/chain';
-import { Validator } from '../components/validator/validator';
+import { Home } from '../pages/home/home';
+import { Chain } from '../pages/chain/chain';
+import { Validator } from '../pages/validator/validator';
 
 function App() {
   return (
