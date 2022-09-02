@@ -17,8 +17,7 @@ export function Header() {
             <div>
                 <NavBar props={side}/>
                 <div className="header" id='start'>
-                    <h1>ProjektBanner</h1>
-                    <Search />
+                    <h1>Transparancy in Cosmos</h1>
                 </div>
             </div>
         )

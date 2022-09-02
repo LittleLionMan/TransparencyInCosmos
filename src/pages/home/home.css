@@ -7,10 +7,9 @@
     display: flex;
     flex-direction: column;
     background-color: white;
-    height: 30em;
-    padding: 5em;
-    margin-right: 10em;
-    margin-left: 10em;
+    margin-right: 25em;
+    margin-left: 25em;
+    margin-bottom: 5em;;
 }
 
 #quote {
@@ -42,6 +41,6 @@
 }
 
 #twitter {
-    height: 5em;
-    width: 6em;
+    height: 2.5em;
+    width: 3em;
 }

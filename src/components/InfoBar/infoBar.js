@@ -14,7 +14,7 @@ export function InfoBar (props) {
 
     return (
         <div className="barButton-container">
-            <button
+            <button className='qm-button'
                 onClick={() => setIsShown(!isShown)}
             >?</button>
             {isShown && (

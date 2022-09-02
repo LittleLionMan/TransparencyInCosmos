@@ -28,8 +28,8 @@ export function NavBar(props) {
                     <nav>
                         <ul>
                             <li><a href='#start'>Start</a></li>
-                            <li><a href='#pd'>Project description</a></li>
-                            <li><a href='#ci'>Contact information</a></li>
+                            <li><a href='#pd'>Info</a></li>
+                            <li><a href='#ci'>Contact</a></li>
                         </ul>
                     </nav>
                 </div>
