@@ -5,10 +5,11 @@ import './chainTable.css';
 import { ValChart } from "../valChart/valChart";
 import { InfoBar } from "../InfoBar/infoBar";
 
-import { isLoadingData, selectVals /* hasErrorData */ } from "../../data/dataSlice";
+import { isLoadingData, selectVals, selectProposals /* hasErrorData */ } from "../../data/dataSlice";
 import { setVal } from "../../pages/validator/validatorSlide";
 import { selectBondedToken } from "../../pages/chain/bondedTokenSlice";
 import { selectChain } from "../../pages/chain/chainSlide";
+
 
 
 export const ChainTable = () => {
@@ -16,6 +17,7 @@ export const ChainTable = () => {
     const dispatch = useDispatch();
     const chain = useSelector(selectChain);
     const bondedToken = useSelector(selectBondedToken);
+    const proposals = useSelector(selectProposals);
     let counter = 0;
     
     const vals = useSelector(selectVals);
@@ -64,6 +66,7 @@ export const ChainTable = () => {
     }
     const cVals = [...activeVals];
     shuffleArray(cVals);
+    console.log(proposals);
 
     return (
         <div className='validator' id='val'>
@@ -97,7 +100,7 @@ export const ChainTable = () => {
                                         <td
                                             style={decentralize(val)}
                                         >{(Math.round(val.tokens / bondedToken / 100)) / 100}% ({activeVals.indexOf(val) + 1})</td>
-                                        <td>some%</td>
+                                        <td>0/{proposals.proposals.length}</td>
                                         <td>Text</td>
                                     </tr>
                                 )

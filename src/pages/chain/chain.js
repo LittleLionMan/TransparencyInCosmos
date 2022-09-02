@@ -4,12 +4,13 @@ import { useEffect } from "react";
 
 import './chain.css';
 import { ChainTable } from "../../components/chainTable/chainTable";
-
 import { setChain } from './chainSlide';
 import { setBondedToken, selectBondedToken } from "./bondedTokenSlice";
 import { data } from '../../data/data';
-import { loadBank, selectBank, selectVals, loadVals, coingeckoData, selectcoingeckoData, selectCommunityPool, loadCommunityPool} from "../../data/dataSlice";
+import { loadBank, selectBank, selectVals, loadVals, coingeckoData, selectcoingeckoData, selectCommunityPool, loadCommunityPool, loadProposals} from "../../data/dataSlice";
+
 import { objSearch } from "../../functions/helperFunctions";
+
 
 export function Chain() {
     
@@ -22,12 +23,11 @@ export function Chain() {
     const bondedToken = useSelector(selectBondedToken);
     
     useEffect(() => {
-
         dispatch(loadBank(objSearch('loadBank', data, chain) + objSearch("denom", data, chain)));
         dispatch(loadVals(objSearch("loadVals", data, chain)));
         dispatch(loadCommunityPool(objSearch("loadCommunityPool", data, chain)));
         dispatch(coingeckoData(objSearch("cgId", data, chain)));
-        
+        dispatch(loadProposals(objSearch('loadProposals', data, chain)));  
     }, [dispatch, chain]);
 
     const stakeHandler = (arr) => {

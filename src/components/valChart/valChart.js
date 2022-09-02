@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { PieChart, Pie, Sector } from 'recharts';
+import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
 import "./valChart.css";
 
 export function ValChart({aVals, bToken, loading}) {
@@ -197,35 +197,39 @@ export function ValChart({aVals, bToken, loading}) {
   );
 
   return (
-    <PieChart width={1200} height={850}>
-      <Pie 
-        activeIndex={activeIndex1}
-        activeShape={renderActiveShape1}
-        data={valsCopy}
-        cx={600}
-        cy={300}
-        startAngle={90}
-        endAngle={450}
-        innerRadius={90}
-        outerRadius={199}
-        fill="grey"
-        dataKey="tokens"
-        onMouseOver={onPieEnter1}
-      />
-      <Pie
-        activeIndex={activeIndex}
-        activeShape={renderActiveShape}
-        data={data}
-        cx={600}
-        cy={300}
-        startAngle={90}
-        endAngle={450}
-        innerRadius={200}
-        outerRadius={240}
-        fill="black"
-        dataKey="value"
-        onMouseOver={onPieEnter}
-      />
-    </PieChart>
+    <div className="chartContainer">
+      <ResponsiveContainer>
+        <PieChart>
+          <Pie 
+            activeIndex={activeIndex1}
+            activeShape={renderActiveShape1}
+            data={valsCopy}
+            cx={600}
+            cy={300}
+            startAngle={90}
+            endAngle={450}
+            innerRadius={90}
+            outerRadius={199}
+            fill="grey"
+            dataKey="tokens"
+            onMouseOver={onPieEnter1}
+          />
+          <Pie
+            activeIndex={activeIndex}
+            activeShape={renderActiveShape}
+            data={data}
+            cx={600}
+            cy={300}
+            startAngle={90}
+            endAngle={450}
+            innerRadius={200}
+            outerRadius={240}
+            fill="black"
+            dataKey="value"
+            onMouseOver={onPieEnter}
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    </div>
   );
 }

@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-import { selectVals, selectDelegations, loadDelegations, isLoadingData } from "../../data/dataSlice";
+import { selectVals, selectDelegations, loadDelegations, isLoadingData, loadValI, selectValI } from "../../data/dataSlice";
 import { selectBondedToken } from "../chain/bondedTokenSlice";
 import { setChain } from "../chain/chainSlide";
 import { selectVal } from "./validatorSlide";
@@ -19,10 +19,13 @@ export function Validator() {
     const bondedToken = useSelector(selectBondedToken);
     const val = (vals.find(val => val.description.moniker === aVal));
     const delegations = useSelector(selectDelegations);
+    const valI = useSelector(selectValI);
     const loading = useSelector(isLoadingData);
     dispatch(setChain(chain));
+    
 
     useEffect(() => {
+        dispatch(loadValI(objSearch('loadValI', data, chain) + val.operator_address))
         dispatch(loadDelegations(objSearch('loadDelegations', data, chain) + val.operator_address + "/delegations?pagination.limit=100000"));
     }, [chain, dispatch, val.operator_address]);
 
@@ -64,7 +67,10 @@ export function Validator() {
 
     const delegatedTokens = countHandler(delegations.delegation_responses);
     const moreThanOne = delegations.delegation_responses.filter(element => element.balance.amount > 1000000);
-    
+    console.log(valI.result.operator_address);
+    //const valAddress = valI.result.operator_address;
+
+ 
     
     return (
         <div className='val'>

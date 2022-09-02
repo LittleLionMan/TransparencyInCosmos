@@ -3,9 +3,11 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     font-size: calc(10px + 2vmin);
-    background-color: rgb(236, 70, 70);
+    background-color: white;
     padding: 1em;
   }
+
+
 

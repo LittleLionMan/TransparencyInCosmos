@@ -18,6 +18,15 @@ export const loadVals = createAsyncThunk(
     }
 )
 
+export const loadValI = createAsyncThunk(
+    "data/loadValI",
+    async (loadValI) => {
+        const response = await fetch(loadValI);
+        const jsonResponse = await response.json();
+        return jsonResponse; 
+    }
+)
+
 export const loadCommunityPool = createAsyncThunk(
     "data/loadCommunityPool",
     async (loadCommunityPool) => {
@@ -45,6 +54,15 @@ export const loadDelegations = createAsyncThunk(
     }
 )
 
+export const loadProposals = createAsyncThunk(
+    "data/loadProposals",
+    async (loadProposals) => {
+        const response = await fetch(loadProposals);
+        const jsonResponse = await response.json();
+        return jsonResponse; 
+    }
+)
+
 const dataSlice = createSlice({
     name: "data",
     initialState: {
@@ -63,6 +81,9 @@ const dataSlice = createSlice({
             validators: [],
             operator_address: ""
         },
+        valI: {
+            result: {operator_address: ""}
+        },
         bank: {
             amount: {
                 amount: 0
@@ -75,6 +96,7 @@ const dataSlice = createSlice({
             ]
         },
         delegations: {delegation_responses: []},
+        proposals: {proposals: []},
         isLoadingData: false,
         hasErrorData: false,
     },
@@ -107,6 +129,19 @@ const dataSlice = createSlice({
                 state.isLoadingData = false;
                 state.hasErrorData = true;
             })
+            .addCase(loadValI.pending, (state) => {
+                state.isLoadingData = true;
+                state.hasErrorData = false;
+            })
+            .addCase(loadValI.fulfilled, (state, action) => {
+                state.isLoadingData = false;
+                state.hasErrorData = false;
+                state.valI = action.payload;
+            })
+            .addCase(loadValI.rejected, (state) => {
+                state.isLoadingData = false;
+                state.hasErrorData = true;
+            })
             .addCase(loadCommunityPool.pending, (state) => {
                 state.isLoadingData = true;
                 state.hasErrorData = false;
@@ -133,6 +168,19 @@ const dataSlice = createSlice({
                 state.isLoadingData = false;
                 state.hasErrorData = true;
             })
+            .addCase(loadProposals.pending, (state) => {
+                state.isLoadingData = true;
+                state.hasErrorData = false;
+            })
+            .addCase(loadProposals.fulfilled, (state, action) => {
+                state.isLoadingData = false;
+                state.hasErrorData = false;
+                state.proposals = action.payload;
+            })
+            .addCase(loadProposals.rejected, (state) => {
+                state.isLoadingData = false;
+                state.hasErrorData = true;
+            })
             .addCase(loadBank.pending, (state) => {
                 state.isLoadingData = true;
                 state.hasErrorData = false;
@@ -153,8 +201,11 @@ export const isLoadingData = (state) => state.data.isLoadingData;
 export const hasErrorData = (state) => state.data.hasErrorData;
 export const selectcoingeckoData = (state) => state.data.coingeckoData;
 export const selectVals = (state) => state.data.vals.validators;
+export const selectValI = (state) => state.data.valI;
 export const selectBank = (state) => state.data.bank;
 export const selectDelegations = (state) => state.data.delegations;
+export const selectProposals = (state) => state.data.proposals;
 export const selectCommunityPool = (state) => state.data.communityPool;
+
 
 export default dataSlice.reducer;

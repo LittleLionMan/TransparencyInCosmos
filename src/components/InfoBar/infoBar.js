@@ -8,21 +8,19 @@ export function InfoBar (props) {
     let arr = []
     info.forEach(element => {
         if (element.name === keyI) {
-            console.log(element.data)
             arr = element.data
         }
     })
 
     return (
         <div className="barButton-container">
-            <button
+            <button className='qm-button'
                 onClick={() => setIsShown(!isShown)}
             >?</button>
             {isShown && (
                 <div className="InfoBar-container">
                     {
                         arr.map(element => {
-                            console.log(element)
                             let keys = Object.keys(element);
                             let key = keys[0];
                             switch(key) {

@@ -1,6 +1,11 @@
-button {
+.qm-button {
     float: right;
     margin-right: 2em;
+    z-index: 50;
+}
+
+.barButton-container {
+    height: 2em;    
 }
 
 .InfoBar-container {
