@@ -66,7 +66,6 @@ export const ChainTable = () => {
     }
     const cVals = [...activeVals];
     shuffleArray(cVals);
-    console.log(proposals);
 
     return (
         <div className='validator' id='val'>
