@@ -1,15 +1,15 @@
 .home {
     display: flex;
     flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .introText {
     display: flex;
     flex-direction: column;
     background-color: white;
-    margin-right: 25em;
-    margin-left: 25em;
-    margin-bottom: 5em;;
+    margin: 4em 15em;
 }
 
 #quote {
@@ -43,4 +43,23 @@
 #twitter {
     height: 2.5em;
     width: 3em;
+}
+
+#blogContainer {
+    display: none;
+}
+
+#blogs {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.preview {
+    width: 20em;
+    height: 15em;
+    border: solid;
+    margin-top: 4em;
+    align-items: center;
+    padding: 0 2em;
 }

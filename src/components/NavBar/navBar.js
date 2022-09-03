@@ -1,17 +1,19 @@
 import './navBar.css';
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { clearChain, selectChain } from '../../pages/chain/chainSlide';
 import { clearVal } from '../../pages/validator/validatorSlide';
 import { objSearch } from '../../functions/helperFunctions';
 import { selectcoingeckoData } from '../../data/dataSlice';
 
+
 export function NavBar(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const chain = useSelector(selectChain);
     const cgData = useSelector(selectcoingeckoData);
+    const location = useLocation();
 
     const navHome = () => {
         dispatch(clearChain());
@@ -24,7 +26,7 @@ export function NavBar(props) {
         navigate(`/${chain}`);
     }
 
-    if (props.props === 'home') {
+    if (location.pathname === '/') {
         return (
             <div className='navi-container'>
                 <div className='onPage'>
@@ -38,7 +40,7 @@ export function NavBar(props) {
                 </div>
             </div>
         )
-    } else if (props.props === 'chain') {
+    } else if (location.pathname === `/${chain}`) {
         return (
             <div className='navi-container'>
                 <div className='offPage'>
@@ -55,6 +57,18 @@ export function NavBar(props) {
                             <li><a href='#val'>Validators</a></li>
                         </ul>
                     </nav>
+                </div>
+            </div>
+        )
+    } else if (location.pathname.includes('/entry')) {
+        return (
+            <div className='navi-container'>
+                <div className='offPage'>
+                    <ul>
+                        <li onClick={navHome}>Home</li>
+                    </ul>
+                </div>
+                <div className='onPage'>
                 </div>
             </div>
         )

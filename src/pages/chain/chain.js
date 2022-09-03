@@ -47,13 +47,14 @@ export function Chain() {
         dispatch(setBondedToken(stakeHandler(vals)));
 
     }, [dispatch, vals]);
-
-
-    
+    console.log(cgData.image.small);
 
     return(
-        
         <div className='chain'>
+            <div className="header" id='start'>
+                <img src={cgData.image.small} alt="Pic" />
+                <h1>{objSearch('name', chain)}</h1>
+             </div>
             <div className='generalInfo' id='gi'>
                 <h5>{cgData.description.en}</h5>
                 <ul>

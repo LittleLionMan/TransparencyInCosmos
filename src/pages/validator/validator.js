@@ -19,8 +19,7 @@ export function Validator() {
     const val = (vals.find(val => val.description.moniker === aVal));
     const delegations = useSelector(selectDelegations);
     const loading = useSelector(isLoadingData);
-    
-    
+
 
     useEffect(() => {
         dispatch(setChain(chain));
@@ -71,6 +70,9 @@ export function Validator() {
     
     return (
         <div className='val'>
+            <div className="header" id='start'>
+                <h1>{val.description.moniker}</h1>
+            </div>
             <div className='generalValInfo' id='gi'>
                 <ul>
                     {websiteHandler()}

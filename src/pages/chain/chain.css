@@ -6,6 +6,17 @@
     width: 80%;
 }
 
+.header {
+    margin-top: 4em;
+    display: flex;
+    flex-direction: row;
+}
+
+.header img {
+    margin-right: 1em;
+    height: 4em;
+}
+
 .generalInfo {
     display: flex;
     flex-direction: column;

@@ -5,7 +5,8 @@ import { info } from '../../data/infoTexts';
 export function InfoBar (props) {
     const [isShown, setIsShown] = useState(false);
     const keyI = props.props;
-    let arr = []
+    let counter = 0;
+    let arr = [];
     info.forEach(element => {
         if (element.name === keyI) {
             arr = element.data
@@ -23,18 +24,19 @@ export function InfoBar (props) {
                         arr.map(element => {
                             let keys = Object.keys(element);
                             let key = keys[0];
+                            counter++;
                             switch(key) {
                                 case 'header':
                                     return (
-                                        <h2>{element.header}</h2>
+                                        <h2 key={counter}>{element.header}</h2>
                                     );
                                 case 'text':
                                     return (
-                                        <p>{element.text}</p>
+                                        <p key={counter}>{element.text}</p>
                                     )
                                 default:
                                     return (
-                                        <p>hier lief was falsch</p>
+                                        <p key={counter}>hier lief was falsch</p>
                                     )
                             }
                             

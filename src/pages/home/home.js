@@ -1,12 +1,25 @@
 import './home.css';
 import twitter from '../../data/pics/2021 Twitter logo - blue.png';
 import { Search } from '../../components/searchBar/search';
+import { SpoilerBar } from '../../components/spoilerBar/spoilerBar';
+import { blog } from '../../data/blog';
+import { useNavigate } from 'react-router-dom';
 
 export function Home() {
+    const navigate = useNavigate();
+    let arr = blog;
+    let counter = 0;
+
+    function navigationHandler(e) {
+        const id = e.currentTarget.id;
+        navigate(`/entry${id}`)
+    }
+
     return (
     
         <div className='home'>
             <div className='introText' id='pd'>
+                <h1 id='start'>Transparancy in Cosmos</h1>
                 <p id="quote">“those who have a why can bear almost any how.”</p>
                 <p id="author">Friedrich Nietzsche</p>
                 <p>Blockchain has at its core has a revolutionary technology. The ability to see the actions and relationships of all participants of a system in real time. While that data is available for all to see at all times, in practice it is only the most technically savvy among us that can take full advantage of that on chain information.</p>
@@ -14,6 +27,30 @@ export function Home() {
                 <p>We at the Cosmos Transparency Project seek to better organize the on chain data of the various blockchains linked by the Cosmos SDK to better inform the community about the 'health' of the ecosystem as a whole. We hope to contribute to the community by offering a space where usable information is accessible and easy to understand so that community members will be better able to make effective individual decisions about governance, decentralization and risk management.We at the Cosmos Transparency Project seek to better organize the on chain data of the various blockchains linked by the Cosmos SDK to better inform the community about the 'health' of the ecosystem as a whole. We hope to contribute to the community by offering a space where usable information is accessible and easy to understand so that community members will be better able to make effective individual decisions about governance, decentralization and risk management.</p>
             </div>
             <Search />
+            <SpoilerBar 
+                name='Blog'
+                containerName='blogContainer'
+            />
+            <div id='blogContainer'>
+                <div id='blogs'>
+                    {
+                    arr.map(element => {
+                        counter++;
+                        return (
+                            <div 
+                                className='preview' 
+                                id={counter}
+                                key={counter}
+                                onClick={navigationHandler}
+                            >
+                                <h2>{element.name}</h2>
+                                <p>{element.intro}</p>
+                            </div>
+                        )
+                    })
+                    }
+                </div>
+            </div>
             <div className='contactInfo' id='ci'>
                 <a href="https://twitter.com/CosmosTProject"><img src={twitter}  alt="Twitter" id="twitter" /></a>
                 <a href="https://discord.gg/HWWjhZ9x"><img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/62594fddd654fc29fcc07359_cb48d2a8d4991281d7a6a95d2f58195e.svg"  alt="Discord"id="discord"/></a>
