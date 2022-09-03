@@ -1,16 +1,18 @@
 import './header.css';
 import { useSelector } from 'react-redux';
 
-import { Search } from '../../components/searchBar/search';
 import { selectChain } from '../../pages/chain/chainSlide';
 import { selectVal } from '../../pages/validator/validatorSlide';
 import { NavBar } from '../NavBar/navBar';
+import { objSearch } from '../../functions/helperFunctions';
+import { selectcoingeckoData } from '../../data/dataSlice';
 
 export function Header() {
     const chain = useSelector(selectChain);
     const val = useSelector(selectVal);
-    let side = ''
-   
+    const cgData = useSelector(selectcoingeckoData);
+
+    let side = '';
     if ( chain === "" && val === "" ) {
         side = 'home';
         return (
@@ -27,8 +29,8 @@ export function Header() {
             <div>
                 <NavBar props={side}/>
                 <div className="header" id='start'>
-                        <h1>{chain}</h1>
-                        <Search />
+                        <img src={cgData.image.small} alt="Pic" />
+                        <h1>{objSearch('name', chain)}</h1>
                 </div>
             </div>
         )
@@ -36,10 +38,11 @@ export function Header() {
         side = 'val';
         return (
             <div>
-                <NavBar props={side}/>
+                <NavBar 
+                    props={side}
+                />
                 <div className="header" id='start'>
                     <h1>{val} on {chain}</h1>
-                    <Search />
                 </div>
             </div>
         )

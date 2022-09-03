@@ -1,0 +1,14 @@
+.spoilerBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.spoilerBar:hover {
+    cursor: pointer;
+}
+
+.spoilerBar img {
+    height: 3em;
+}

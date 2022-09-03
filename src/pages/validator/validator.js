@@ -6,7 +6,6 @@ import { selectVals, selectDelegations, loadDelegations, isLoadingData, loadValI
 import { selectBondedToken } from "../chain/bondedTokenSlice";
 import { setChain } from "../chain/chainSlide";
 import { selectVal } from "./validatorSlide";
-import { data } from "../../data/data";
 import { objSearch } from "../../functions/helperFunctions";
 
 import './validator.css';
@@ -20,12 +19,13 @@ export function Validator() {
     const val = (vals.find(val => val.description.moniker === aVal));
     const delegations = useSelector(selectDelegations);
     const loading = useSelector(isLoadingData);
-    dispatch(setChain(chain));
+    
     
 
     useEffect(() => {
-        dispatch(loadValI(objSearch('loadValI', data, chain) + val.operator_address))
-        dispatch(loadDelegations(objSearch('loadDelegations', data, chain) + val.operator_address + "/delegations?pagination.limit=100000"));
+        dispatch(setChain(chain));
+        dispatch(loadValI(objSearch('loadValI', chain) + val.operator_address))
+        dispatch(loadDelegations(objSearch('loadDelegations', chain) + val.operator_address + "/delegations?pagination.limit=100000"));
     }, [chain, dispatch, val.operator_address]);
 
     
@@ -71,7 +71,7 @@ export function Validator() {
     
     return (
         <div className='val'>
-            <div className='generalInfo' id='gi'>
+            <div className='generalValInfo' id='gi'>
                 <ul>
                     {websiteHandler()}
                     <li>Details: {val.description.details}</li>                  

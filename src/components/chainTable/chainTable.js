@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import './chainTable.css';
 import { ValChart } from "../valChart/valChart";
 import { InfoBar } from "../InfoBar/infoBar";
+import { SpoilerBar } from "../spoilerBar/spoilerBar";
 
 import { isLoadingData, selectVals, selectProposals /* hasErrorData */ } from "../../data/dataSlice";
 import { setVal } from "../../pages/validator/validatorSlide";
@@ -52,7 +53,7 @@ export const ChainTable = () => {
         }  
     activeVals.some(check);
 
-    return {backgroundColor: threshold};
+    return {color: threshold};
         
     }
 
@@ -69,11 +70,19 @@ export const ChainTable = () => {
 
     return (
         <div className='validator' id='val'>
-                <div>
+                <SpoilerBar 
+                    name='Distribution Graph'
+                    containerName='valGraph'
+                />
+                <div id='valGraph'>
                     <InfoBar props="valChartI"/>
                     <ValChart aVals={activeVals} bToken={bondedToken} loading={loading}/>
                 </div>
-                <table>
+                <SpoilerBar 
+                    name='Validators'
+                    containerName='valTable'
+                />
+                <table id='valTable'>
                     <thead>
                         <tr>
                             <th>Name:</th>
@@ -95,12 +104,12 @@ export const ChainTable = () => {
                                             onClick={valHandler}
                                             className='valName'
                                         >{val.description.moniker}</td>
-                                        <td>some%</td>
+                                        <td></td>
                                         <td
                                             style={decentralize(val)}
                                         >{(Math.round(val.tokens / bondedToken / 100)) / 100}% ({activeVals.indexOf(val) + 1})</td>
-                                        <td>0/{proposals.proposals.length}</td>
-                                        <td>Text</td>
+                                        <td>?/{proposals.proposals.length}</td>
+                                        <td></td>
                                     </tr>
                                 )
                         })

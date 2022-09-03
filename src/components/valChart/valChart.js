@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
 import "./valChart.css";
 
@@ -9,6 +9,10 @@ export function ValChart({aVals, bToken, loading}) {
       element.tokens = parseInt(element.tokens);
     });
   }
+
+  useEffect(() => {
+    setActiveIndex1(-1);
+  }, [])
   
   const valSorting = (start, end) => {
     const arr = [];
@@ -56,9 +60,6 @@ export function ValChart({aVals, bToken, loading}) {
     const ey = my;
     const textAnchor = cos >= 0 ? "start" : "end";
 
-    setActiveIndex1(-1);
-
-  
     return (
       <g>
         <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
@@ -105,7 +106,7 @@ export function ValChart({aVals, bToken, loading}) {
             {`${payload.vals[0] !== "..." ? payload.vals.length : payload.vals.length - 1} (Rate ${(percent * 100).toFixed(2)}%)`}
           </text>
           <foreignObject 
-            width={150} 
+            width={200} 
             height={250}
             x={ex + (cos >= 0 ? 1 : -14) * 12}
             y={ey+25}
@@ -204,7 +205,7 @@ export function ValChart({aVals, bToken, loading}) {
             activeIndex={activeIndex1}
             activeShape={renderActiveShape1}
             data={valsCopy}
-            cx={600}
+            cx={500}
             cy={300}
             startAngle={90}
             endAngle={450}
@@ -218,7 +219,7 @@ export function ValChart({aVals, bToken, loading}) {
             activeIndex={activeIndex}
             activeShape={renderActiveShape}
             data={data}
-            cx={600}
+            cx={500}
             cy={300}
             startAngle={90}
             endAngle={450}

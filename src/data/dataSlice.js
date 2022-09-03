@@ -75,7 +75,8 @@ const dataSlice = createSlice({
                 current_price: {
                     usd: 0
                 }
-            }
+            },
+            image: {}
         },
         vals: {
             validators: [],

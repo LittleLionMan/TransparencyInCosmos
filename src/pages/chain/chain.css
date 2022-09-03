@@ -2,14 +2,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0 auto;
+    width: 80%;
 }
 
 .generalInfo {
     display: flex;
     flex-direction: column;
-    background-color: aqua;
-    width: 100%;
-    justify-content: center;
+    background-color: white;
 }
 
 .generalInfo p {
@@ -18,10 +18,8 @@
 
 .specificInfo {
     display: flex;
-    background-color:aquamarine;
-    height: 20em;
-    width: 100%;
-    justify-content: center;
+    background-color:white;
+    display: none;
 }
 
 .specificInfo p {

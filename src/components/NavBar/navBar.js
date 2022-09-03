@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom';
 
 import { clearChain, selectChain } from '../../pages/chain/chainSlide';
 import { clearVal } from '../../pages/validator/validatorSlide';
+import { objSearch } from '../../functions/helperFunctions';
+import { selectcoingeckoData } from '../../data/dataSlice';
 
 export function NavBar(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const chain = useSelector(selectChain);
+    const cgData = useSelector(selectcoingeckoData);
 
     const navHome = () => {
         dispatch(clearChain());
@@ -40,7 +43,7 @@ export function NavBar(props) {
             <div className='navi-container'>
                 <div className='offPage'>
                     <ul>
-                        <li onClick={navHome}>home</li>
+                        <li onClick={navHome}>Home</li>
                     </ul>
                 </div>
                 <div className='onPage'>
@@ -60,8 +63,8 @@ export function NavBar(props) {
             <div className='navi-container'>
                 <div className='offPage'>
                     <ul>
-                        <li onClick={navHome}>home</li>
-                        <li onClick={navChain}>{chain}</li>
+                        <li onClick={navHome}>Home</li>
+                        <li onClick={navChain}><img src={cgData.image.thumb} alt="Pic" />{objSearch('name',chain)}</li>
                     </ul>
                 </div>
                 <div className='onPage'>

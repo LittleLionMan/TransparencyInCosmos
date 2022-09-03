@@ -11,7 +11,7 @@ export function InfoBar (props) {
             arr = element.data
         }
     })
-
+    
     return (
         <div className="barButton-container">
             <button className='qm-button'
