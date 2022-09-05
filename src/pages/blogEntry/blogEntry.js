@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 
 export function BlogEntry() {
     const { number } = useParams();
-    console.log(number);
     let counter = 0;
     let arr = blog[number - 1].data;
     
