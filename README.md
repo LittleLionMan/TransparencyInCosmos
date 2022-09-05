@@ -12,13 +12,13 @@
     * link: 2 arguments. The first is the url. The second the showcased text representing the link
     * image: 3 arguments. first the url of the picture. second explanation in text under the picture. third the intended width of the picture. Sadly at the moment in px. I intend to change this to a percentage-value in the future.
 
-If you need more features reach out or add the data in a comment. For example:
-*/* {video: link: some url, text: some text} */ //I need a possibility to integrate videos!*
+    If you need more features reach out or add the data in a comment. For example:
+    */* {video: link: some url, text: some text} */ //I need a possibility to integrate videos!*
 5. The basic requirement for a new entry is a name and a an empty array like this:
-{
-    name: < name of the blog-entry >,
-    data: []
-}
+    {
+        name: < name of the blog-entry >,
+        data: []
+    }
 This will create a new preview on the landing page and a an empty article.
 6. You can monitor your progress by using **npm start** in the cli.
 7. If you are satisfied with your result you can create a new branch with git. **git checkout -b 'blog < name of your blog-entry >'** (Don't forget to stop the app in your terminal first by clicking *control + c*)
