@@ -2,9 +2,9 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-import { selectVals, selectDelegations, loadDelegations, isLoadingData, loadValI } from "../../data/dataSlice";
+import { selectVals, selectDelegations, loadDelegations, isLoadingData, loadValI, selectSlashes, loadSlashes } from "../../data/dataSlice";
 import { selectBondedToken } from "../chain/bondedTokenSlice";
-import { setChain } from "../chain/chainSlide";
+//import { setChain } from "../chain/chainSlide";
 import { selectVal } from "./validatorSlide";
 import { objSearch } from "../../functions/helperFunctions";
 
@@ -19,12 +19,14 @@ export function Validator() {
     const val = (vals.find(val => val.description.moniker === aVal));
     const delegations = useSelector(selectDelegations);
     const loading = useSelector(isLoadingData);
+    const numberSlashes = useSelector(selectSlashes);
 
 
     useEffect(() => {
-        dispatch(setChain(chain));
+        //dispatch(setChain(chain));
         dispatch(loadValI(objSearch('loadValI', chain) + val.operator_address))
         dispatch(loadDelegations(objSearch('loadDelegations', chain) + val.operator_address + "/delegations?pagination.limit=100000"));
+        dispatch(loadSlashes(objSearch('loadSlashes', chain) + val.operator_address + "/slashes?endingHeight=4716616"));
     }, [chain, dispatch, val.operator_address]);
 
     
@@ -66,7 +68,7 @@ export function Validator() {
     const delegatedTokens = countHandler(delegations.delegation_responses);
     const moreThanOne = delegations.delegation_responses.filter(element => element.balance.amount > 1000000);
 
- 
+    console.log(numberSlashes.slashes);
     
     return (
         <div className='val'>
@@ -82,12 +84,15 @@ export function Validator() {
                     <li>Commission: {Math.round(val.commission.commission_rates.rate * 100) + " %"}</li>
                 </ul>
             </div>
-            <div className='container' id="si">
+            <div className='vContainer' id="si">
                 <div className='info'>
                     <h1>Security</h1>
+                    <ul>
+                        <li>Slashes: {numberSlashes.slashes.length}</li>
+                    </ul>
                 </div>
                 <div className='info'>
-                    <h1>Dezentralization</h1>
+                    <h1>Decentralization</h1>
                     <ul>
                         <li>Stake: {loading ? "loading " : (Math.round(delegatedTokens * 10000/bondedToken) / 100)+ " %"} </li>
                         <li>Individual Delegations: {loading ? "loading" : delegations.delegation_responses.length + " (>1 Coin: " + Math.round(100 * moreThanOne.length/delegations.delegation_responses.length) + " %)"}</li>

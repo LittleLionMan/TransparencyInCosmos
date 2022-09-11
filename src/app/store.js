@@ -5,6 +5,7 @@ import chainReducer from '../pages/chain/chainSlide';
 import bondedTokenReducer from '../pages/chain/bondedTokenSlice';
 import valReducer from '../pages/validator/validatorSlide'
 import dataReducer from '../data/dataSlice';
+import blogReducer from '../pages/blogEntry/blogSlice';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     chain: chainReducer,
     val: valReducer,
     data: dataReducer,
-    bondedToken: bondedTokenReducer
+    bondedToken: bondedTokenReducer,
+    blog: blogReducer
   },
 });

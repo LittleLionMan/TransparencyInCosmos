@@ -11,8 +11,6 @@ import { setVal } from "../../pages/validator/validatorSlide";
 import { selectBondedToken } from "../../pages/chain/bondedTokenSlice";
 import { selectChain } from "../../pages/chain/chainSlide";
 
-
-
 export const ChainTable = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();

@@ -9,7 +9,8 @@ export const data = {
         loadBank: "https://api.juno.pupmos.network/cosmos/bank/v1beta1/supply/",
         loadDelegations: "https://api.juno.pupmos.network/cosmos/staking/v1beta1/validators/",
         loadCommunityPool: "https://api.juno.pupmos.network/cosmos/distribution/v1beta1/community_pool",
-        loadProposals: "https://api.juno.pupmos.network/cosmos/gov/v1beta1/proposals"
+        loadProposals: "https://api.juno.pupmos.network/cosmos/gov/v1beta1/proposals",
+        loadSlashes: "https://api.juno.pupmos.network/cosmos/distribution/v1beta1/validators/"
     },
     cosmoshub: {
         name: "Cosmos Hub",
@@ -21,6 +22,7 @@ export const data = {
         loadBank: "https://api.cosmoshub.pupmos.network/cosmos/bank/v1beta1/supply/",
         loadDelegations: "https://api.cosmoshub.pupmos.network//cosmos/staking/v1beta1/validators/",
         loadCommunityPool: "https://api.cosmoshub.pupmos.network/cosmos/distribution/v1beta1/community_pool",
-        loadProposals: "https://api.cosmoshub.pupmos.network/cosmos/gov/v1beta1/proposals"
+        loadProposals: "https://api.cosmoshub.pupmos.network/cosmos/gov/v1beta1/proposals",
+        loadSlashes: "https://api.cosmoshub.pupmos.network/cosmos/distribution/v1beta1/validators/"
     }
 }

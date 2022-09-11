@@ -27,7 +27,7 @@ export function Chain() {
         dispatch(loadVals(objSearch("loadVals", chain)));
         dispatch(loadCommunityPool(objSearch("loadCommunityPool", chain)));
         dispatch(coingeckoData(objSearch("cgId", chain)));
-        dispatch(loadProposals(objSearch('loadProposals', chain)));  
+        dispatch(loadProposals(objSearch('loadProposals', chain))); 
 
         dispatch(setChain(chain));
         
@@ -47,7 +47,6 @@ export function Chain() {
         dispatch(setBondedToken(stakeHandler(vals)));
 
     }, [dispatch, vals]);
-    console.log(cgData.image.small);
 
     return(
         <div className='chain'>

@@ -3,16 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { clearChain, selectChain } from '../../pages/chain/chainSlide';
-import { clearVal } from '../../pages/validator/validatorSlide';
+import { clearVal, selectVal } from '../../pages/validator/validatorSlide';
 import { objSearch } from '../../functions/helperFunctions';
 import { selectcoingeckoData } from '../../data/dataSlice';
 
 
-export function NavBar(props) {
+
+export function NavBar() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const chain = useSelector(selectChain);
+    const val = useSelector(selectVal);
     const cgData = useSelector(selectcoingeckoData);
+
     const location = useLocation();
 
     const navHome = () => {
@@ -60,19 +63,7 @@ export function NavBar(props) {
                 </div>
             </div>
         )
-    } else if (location.pathname.includes('/entry')) {
-        return (
-            <div className='navi-container'>
-                <div className='offPage'>
-                    <ul>
-                        <li onClick={navHome}>Home</li>
-                    </ul>
-                </div>
-                <div className='onPage'>
-                </div>
-            </div>
-        )
-    } else {
+    } else if (location.pathname === `/${chain}/${val}`) {
         return (
             <div className='navi-container'>
                 <div className='offPage'>
@@ -89,6 +80,18 @@ export function NavBar(props) {
                             <li><a href='#si'>Specific Info</a></li>
                         </ul>
                     </nav>
+                </div>
+            </div>
+        )
+    } else {
+        return (
+            <div className='navi-container'>
+                <div className='offPage'>
+                    <ul>
+                        <li onClick={navHome}>Home</li>
+                    </ul>
+                </div>
+                <div className='onPage'>
                 </div>
             </div>
         )

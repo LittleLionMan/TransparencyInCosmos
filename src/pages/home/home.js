@@ -2,18 +2,19 @@ import './home.css';
 import twitter from '../../data/pics/2021 Twitter logo - blue.png';
 import { Search } from '../../components/searchBar/search';
 import { SpoilerBar } from '../../components/spoilerBar/spoilerBar';
-import { blog } from '../../data/blog';
-import { useNavigate } from 'react-router-dom';
+import { Blog } from '../../components/blog/blog';
+import { useDispatch } from 'react-redux';
+import { mediumData } from '../blogEntry/blogSlice';
+import { useEffect } from 'react';
+//import { useNavigate } from 'react-router-dom';
 
 export function Home() {
-    const navigate = useNavigate();
-    let arr = blog;
-    let counter = 0;
+    const dispatch = useDispatch();
 
-    function navigationHandler(e) {
-        const id = e.currentTarget.id;
-        navigate(`/entry${id}`)
-    }
+    useEffect(() => {
+        dispatch(mediumData());
+    }, [dispatch]);
+
 
     return (
     
@@ -32,24 +33,7 @@ export function Home() {
                 containerName='blogContainer'
             />
             <div id='blogContainer'>
-                <div id='blogs'>
-                    {
-                    arr.map(element => {
-                        counter++;
-                        return (
-                            <div 
-                                className='preview' 
-                                id={counter}
-                                key={counter}
-                                onClick={navigationHandler}
-                            >
-                                <h2>{element.name}</h2>
-                                <p>{element.intro}</p>
-                            </div>
-                        )
-                    })
-                    }
-                </div>
+                <Blog />
             </div>
             <div className='contactInfo' id='ci'>
                 <a href="https://twitter.com/CosmosTProject"><img src={twitter}  alt="Twitter" id="twitter" /></a>
