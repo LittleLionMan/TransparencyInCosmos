@@ -89,7 +89,10 @@ const dataSlice = createSlice({
         },
         vals: {
             validators: [],
-            operator_address: ""
+            operator_address: "",
+            description: {
+                moniker: ""
+            }
         },
         valI: {
             result: {operator_address: ""}

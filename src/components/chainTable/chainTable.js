@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import './chainTable.css';
+//import './chainTable.css';
+import Table from 'react-bootstrap/Table';
 import { ValChart } from "../valChart/valChart";
 import { InfoBar } from "../InfoBar/infoBar";
 import { SpoilerBar } from "../spoilerBar/spoilerBar";
@@ -67,12 +68,12 @@ export const ChainTable = () => {
     shuffleArray(cVals);
 
     return (
-        <div className='validator' id='val'>
+        <div className='validator' id='val' >
                 <SpoilerBar 
                     name='Distribution Graph'
                     containerName='valGraph'
                 />
-                <div id='valGraph'>
+                <div id='valGraph' style={{display: 'none'}}>
                     <InfoBar props="valChartI"/>
                     <ValChart aVals={activeVals} bToken={bondedToken} loading={loading}/>
                 </div>
@@ -80,7 +81,15 @@ export const ChainTable = () => {
                     name='Validators'
                     containerName='valTable'
                 />
-                <table id='valTable'>
+                <Table 
+                    striped 
+                    bordered 
+                    hover
+                    responsive
+                    id='valTable' 
+                    style={{display: 'none'}} 
+                    variant="dark"
+                >
                     <thead>
                         <tr>
                             <th>Name:</th>
@@ -97,9 +106,8 @@ export const ChainTable = () => {
                         cVals.map(val => {
                                 counter ++;
                                 return (
-                                    <tr key={counter}>
+                                    <tr key={counter} onClick={valHandler}>
                                         <td 
-                                            onClick={valHandler}
                                             className='valName'
                                         >{val.description.moniker}</td>
                                         <td></td>
@@ -114,7 +122,7 @@ export const ChainTable = () => {
                         
                     }
                     </tbody>
-                </table>
+                </Table>
             </div>
     )
 }

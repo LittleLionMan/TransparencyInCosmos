@@ -1,35 +1,33 @@
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 import { selectVals, selectDelegations, loadDelegations, isLoadingData, loadValI, selectSlashes, loadSlashes } from "../../data/dataSlice";
 import { selectBondedToken } from "../chain/bondedTokenSlice";
-//import { setChain } from "../chain/chainSlide";
-import { selectVal } from "./validatorSlide";
 import { objSearch } from "../../functions/helperFunctions";
 
 import './validator.css';
-
+//page loses state after refresh. fix needed!
 export function Validator() {
     const dispatch = useDispatch();
     const { chain } = useParams();
-    const aVal = useSelector(selectVal);
+    const { validator } = useParams();
     const vals = useSelector(selectVals);
     const bondedToken = useSelector(selectBondedToken);
-    const val = (vals.find(val => val.description.moniker === aVal));
+    const val = (vals.find(val => val.description.moniker === validator));
     const delegations = useSelector(selectDelegations);
     const loading = useSelector(isLoadingData);
     const numberSlashes = useSelector(selectSlashes);
 
-
     useEffect(() => {
-        //dispatch(setChain(chain));
         dispatch(loadValI(objSearch('loadValI', chain) + val.operator_address))
         dispatch(loadDelegations(objSearch('loadDelegations', chain) + val.operator_address + "/delegations?pagination.limit=100000"));
         dispatch(loadSlashes(objSearch('loadSlashes', chain) + val.operator_address + "/slashes?endingHeight=4716616"));
     }, [chain, dispatch, val.operator_address]);
-
-    
 
     const countHandler = (arr) => {
         let sum = 0;
@@ -50,16 +48,16 @@ export function Validator() {
     const websiteHandler = () => {
         if (val.description.website !== "") {
             return (
-                <li>Moniker: <a href={val.description.website}>{val.description.moniker}</a></li>
+                <ListGroup.Item variant='primary'><b>Moniker:</b> <a href={val.description.website}>{val.description.moniker}</a></ListGroup.Item>
             )
         } else {
             return (
-                <li>Moniker: {val.description.moniker}</li>
+                <ListGroup.Item variant='primary'><b>Moniker:</b> {val.description.moniker}</ListGroup.Item>
             )
         }
     }
 
-    if (val === undefined) {
+    if (vals[0] === undefined) {
         return (
             <h1>Navigate back</h1>
         )
@@ -67,47 +65,47 @@ export function Validator() {
 
     const delegatedTokens = countHandler(delegations.delegation_responses);
     const moreThanOne = delegations.delegation_responses.filter(element => element.balance.amount > 1000000);
-
-    console.log(numberSlashes.slashes);
     
     return (
-        <div className='val'>
-            <div className="header" id='start'>
-                <h1>{val.description.moniker}</h1>
-            </div>
-            <div className='generalValInfo' id='gi'>
-                <ul>
+        <Container style={{ marginTop: 70}}>
+            <h1>{val.description.moniker}</h1>
+            <Container>
+                <ListGroup>
                     {websiteHandler()}
-                    <li>Details: {val.description.details}</li>                  
-                    <li>Stake: {loading ? "loading " : delegatedTokens + " Coins"}</li>
-                    <li>Address: {val.operator_address}</li>
-                    <li>Commission: {Math.round(val.commission.commission_rates.rate * 100) + " %"}</li>
-                </ul>
-            </div>
-            <div className='vContainer' id="si">
-                <div className='info'>
-                    <h1>Security</h1>
-                    <ul>
-                        <li>Slashes: {numberSlashes.slashes.length}</li>
-                    </ul>
-                </div>
-                <div className='info'>
-                    <h1>Decentralization</h1>
-                    <ul>
-                        <li>Stake: {loading ? "loading " : (Math.round(delegatedTokens * 10000/bondedToken) / 100)+ " %"} </li>
-                        <li>Individual Delegations: {loading ? "loading" : delegations.delegation_responses.length + " (>1 Coin: " + Math.round(100 * moreThanOne.length/delegations.delegation_responses.length) + " %)"}</li>
-                        <li>Average Delegation: {loading ? "loading" : Math.round(delegatedTokens/delegations.delegation_responses.length) + " Coins (>1 Coin: " + Math.round(countHandler(moreThanOne)/moreThanOne.length) + " Coins)"}</li>
-                        <li>Largest Delegation: {loading ? "loading " : Math.round(Math.max(...arrHandler(delegations.delegation_responses)) / 1000000) + " Coins"}</li>
-                    </ul>
-                    
-                </div>
-                <div className='info'>
-                    <h1>Governance</h1>
-                </div>
-                <div className='info'>
-                    <h1>Commitment</h1>
-                </div>
-            </div>
-        </div>
+                    <ListGroup.Item><b>Details: </b>{val.description.details}</ListGroup.Item>                  
+                    <ListGroup.Item><b>Stake: </b>{loading ? "loading " : delegatedTokens + " Coins"}</ListGroup.Item>
+                    <ListGroup.Item><b>Address: </b>{val.operator_address}</ListGroup.Item>
+                    <ListGroup.Item><b>Commission: </b>{Math.round(val.commission.commission_rates.rate * 100) + " %"}</ListGroup.Item>
+                </ListGroup>
+            </Container>
+            <Container className="info">
+                <Row>
+                    <Col>
+                        <h2>Security</h2>
+                        <ListGroup variant='flush'>
+                            <ListGroup.Item><b>Slashes: </b>{loading ? "loading" : numberSlashes.slashes.length}</ListGroup.Item>
+                        </ListGroup>
+                    </Col>
+                    <Col>
+                        <h2>Decentralization</h2>
+                        <ListGroup variant='flush'>
+                            <ListGroup.Item><b>Stake: </b>{loading ? "loading " : (Math.round(delegatedTokens * 10000/bondedToken) / 100)+ " %"} </ListGroup.Item>
+                            <ListGroup.Item><b>Delegations: </b>{loading ? "loading" : delegations.delegation_responses.length + " (>1 Coin: " + Math.round(100 * moreThanOne.length/delegations.delegation_responses.length) + " %)"}</ListGroup.Item>
+                            <ListGroup.Item><b>Average Delegation: </b>{loading ? "loading" : Math.round(delegatedTokens/delegations.delegation_responses.length) + " Coins (>1 Coin: " + Math.round(countHandler(moreThanOne)/moreThanOne.length) + " Coins)"}</ListGroup.Item>
+                            <ListGroup.Item><b>Largest Delegation: </b>{loading ? "loading " : Math.round(Math.max(...arrHandler(delegations.delegation_responses)) / 1000000) + " Coins"}</ListGroup.Item>
+                        </ListGroup>
+                        
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <h2>Governance</h2>
+                    </Col>
+                    <Col>
+                        <h2>Commitment</h2>
+                    </Col>
+                </Row>
+            </Container>
+        </Container>
     )
 }

@@ -2,6 +2,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import './search.css';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Button from 'react-bootstrap/Button';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import {
   clearSearchTerm,
   selectSearchTerm,
@@ -31,33 +35,40 @@ export const Search = () => {
   }
   
   return (
-    <div id="search-container">
-      <button
+    <ButtonToolbar>
+      <InputGroup>
+        <InputGroup.Text>Chain: </InputGroup.Text>
+      <Form.Select
+        onChange={onSearchChangeHandler}
+      >
+        <option></option>
+        {
+            Object.keys(data).map((chain) => {
+              counter++;
+              return (
+                <option value={chain} key={counter}>{chain}</option>
+              )
+            })
+        }
+      </Form.Select>
+      </InputGroup>
+      <Button
+        variant="light"
         onClick={searchHandler}
         type="button"
         id="search-button"
       >
         <img id="search-icon" alt="" src={searchIconUrl} /> 
-      </button>
-      <input
+      </Button>
+    </ButtonToolbar>
+  );
+};
+
+/* <input
         id="search"
         type="text"
         value={searchTerm}
         onChange={onSearchChangeHandler}
         placeholder="Search chain"
         list='chains'
-      />
-      <datalist id='chains'>
-        {
-            Object.keys(data).map((chain) => {
-              counter++;
-              return (
-                <option value={chain} key={counter}  />
-              )
-            })
-        }
-      </datalist>
-    </div>
-  );
-};
-
+      /> */
