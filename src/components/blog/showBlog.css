@@ -32,17 +32,15 @@
     background-repeat: no-repeat;
 }
 
-.grid {
+#grid {
     margin-bottom: 4.5rem!important;
-    flex: 0 0 33.333333%;
-    max-width: 25%;
+    min-width: 25%;
     position: relative;
-    width: 100%;
     padding-right: 15px;
     padding-left: 15px;
 }
 
-.grid:nth-child(3n+1) {
+#grid:nth-child(3n+1) {
     clear: both;
 }
 
@@ -69,11 +67,12 @@
     color: #3d5170 !important;
 }
 
-.grid h5 {
-    margin-top: 15px;
+#grid h5 {
+    margin-top: 2rem;
 }
 
 .cardText {
+    margin-top: 1rem;
     display: block;
     /* or inline-block */
     text-overflow: ellipsis;
@@ -86,7 +85,7 @@
     font-size: 15px;
 }
 
-.grid svg {
+#grid svg {
     display: inline-block;
     font-size: inherit;
     height: 1em;
@@ -96,7 +95,7 @@
     margin-right: 10px;
 }
 
-.grid span {
+#grid span {
     font-weight: 500;
     font-size: 15px;
     display: inline;

@@ -1,8 +1,8 @@
 .title {
-    margin-top: 4em;
+    margin-top: 4rem;
 }
 
-.center {
+.container {
     margin: 0 auto;
     float: none;
     width: 750px !important;

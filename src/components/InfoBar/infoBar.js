@@ -1,9 +1,10 @@
-import './infoBar.css';
-import { useState } from 'react';
+//import './infoBar.css';
 import { info } from '../../data/infoTexts';
+import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
 
 export function InfoBar (props) {
-    const [isShown, setIsShown] = useState(false);
     const keyI = props.props;
     let counter = 0;
     let arr = [];
@@ -14,12 +15,12 @@ export function InfoBar (props) {
     })
     
     return (
-        <div className="barButton-container">
-            <button className='qm-button'
-                onClick={() => setIsShown(!isShown)}
-            >?</button>
-            {isShown && (
-                <div className="InfoBar-container">
+        <OverlayTrigger
+            trigger="click"
+            rootClose={true}
+            placement='bottom'
+            overlay={
+                <Popover>
                     {
                         arr.map(element => {
                             let keys = Object.keys(element);
@@ -28,22 +29,24 @@ export function InfoBar (props) {
                             switch(key) {
                                 case 'header':
                                     return (
-                                        <h2 key={counter}>{element.header}</h2>
+                                        <Popover.Header as="h3" key={counter}>{element.header}</Popover.Header>
                                     );
                                 case 'text':
                                     return (
-                                        <p key={counter}>{element.text}</p>
+                                        <Popover.Body key={counter}>{element.text}</Popover.Body>
                                     )
                                 default:
                                     return (
-                                        <p key={counter}>hier lief was falsch</p>
+                                        <Popover.Body key={counter}>hier lief was falsch</Popover.Body>
                                     )
                             }
                             
                         })
                     }
-                </div>
-            )}
-        </div>
+                </Popover>
+          }
+        >
+            <Button variant="secondary">?</Button>
+        </OverlayTrigger>
     )
 }

@@ -1,8 +1,9 @@
 import './singleBlog.css'
-import Spinner from "../../components/spinner/spinner";
+import Spinner from 'react-bootstrap/Spinner';
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectMedium, isLoadingMedium, hasErrorMedium } from "./blogSlice";
+import Container from 'react-bootstrap/Container';
 
 export function BlogEntry() {
     const { id } = useParams();
@@ -21,9 +22,7 @@ export function BlogEntry() {
     if (isLoading) {
         console.log("loading")
         return(
-            <div className='center'>
-                <Spinner />
-            </div>
+            <Spinner animation="border" />
         )
     }
 
@@ -32,7 +31,7 @@ export function BlogEntry() {
     }
         
     return (
-        <div className='center'>
+        <Container>
             <h2 className='title'>{post.title}</h2>
             <div className='avatar'>
                 <a
@@ -55,7 +54,7 @@ export function BlogEntry() {
   
             <div className="content"  dangerouslySetInnerHTML={{ __html:post.content}}>
             </div>
-        </div>
+        </Container>
     );
     
 }

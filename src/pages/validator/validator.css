@@ -1,3 +1,11 @@
-.info {
+.info-c {
+    min-width: 300px;
+}
+
+.info-c h2 {
     margin-top: 2rem;
+}
+
+.details {
+    word-wrap: break-word;
 }

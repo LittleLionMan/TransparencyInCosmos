@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-//import './chainTable.css';
+import './chainTable.css';
 import Table from 'react-bootstrap/Table';
+import Spinner from 'react-bootstrap/Spinner';
 import { ValChart } from "../valChart/valChart";
 import { InfoBar } from "../InfoBar/infoBar";
 import { SpoilerBar } from "../spoilerBar/spoilerBar";
@@ -101,7 +102,7 @@ export const ChainTable = () => {
                     </thead>
                     <tbody>
                     {
-                        loading ? <tr><td>loading</td></tr> :
+                        loading ? <Spinner animation="border" /> :
                         
                         cVals.map(val => {
                                 counter ++;

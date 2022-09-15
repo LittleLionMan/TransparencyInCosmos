@@ -1,15 +1,6 @@
-.home {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin: 0 auto;
-}
-
-.introText {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    margin: 4em 15em;
+#introText {
+    margin-top: 5rem;
+    max-width: 500px;
 }
 
 #quote {
@@ -43,16 +34,6 @@
 #twitter {
     height: 2.5em;
     width: 3em;
-}
-
-#blogContainer {
-    display: none;
-}
-
-#blogs {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
 }
 
 .preview {
