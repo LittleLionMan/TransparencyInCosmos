@@ -28,7 +28,7 @@ export const ChainTable = () => {
 
     const valHandler = (e) => {
         const val = e.target.innerHTML;
-        const cVal = val.replaceAll("%", "&");
+        const cVal = val.replaceAll("/", "|");
         dispatch(setVal(val));
         navigate(`/${chain}/${cVal}`);
     }

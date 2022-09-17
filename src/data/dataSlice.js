@@ -112,6 +112,7 @@ const dataSlice = createSlice({
         delegations: {delegation_responses: []},
         proposals: {proposals: []},
         isLoadingData: false,
+        isLoadingDelegations: false,
         hasErrorData: false,
     },
     reducers: {},
@@ -170,16 +171,16 @@ const dataSlice = createSlice({
                 state.hasErrorData = true;
             })
             .addCase(loadDelegations.pending, (state) => {
-                state.isLoadingData = true;
+                state.isLoadingDelegations = true;
                 state.hasErrorData = false;
             })
             .addCase(loadDelegations.fulfilled, (state, action) => {
-                state.isLoadingData = false;
+                state.isLoadingDelegations = false;
                 state.hasErrorData = false;
                 state.delegations = action.payload;
             })
             .addCase(loadDelegations.rejected, (state) => {
-                state.isLoadingData = false;
+                state.isLoadingDelegations = false;
                 state.hasErrorData = true;
             })
             .addCase(loadProposals.pending, (state) => {
@@ -225,6 +226,7 @@ const dataSlice = createSlice({
 });
 
 export const isLoadingData = (state) => state.data.isLoadingData;
+export const isLoadingDelegations = (state) => state.data.isLoadingDelegations;
 export const hasErrorData = (state) => state.data.hasErrorData;
 export const selectcoingeckoData = (state) => state.data.coingeckoData;
 export const selectVals = (state) => state.data.vals.validators;
