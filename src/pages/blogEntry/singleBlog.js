@@ -31,7 +31,7 @@ export function BlogEntry() {
     }
         
     return (
-        <Container>
+        <Container id='singleblog'>
             <h2 className='title'>{post.title}</h2>
             <div className='avatar'>
                 <a
