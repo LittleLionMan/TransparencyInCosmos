@@ -3,6 +3,7 @@ import leftFinger from '../../data/pics/pointing-left-finger-svgrepo-com.svg';
 import downFinger from '../../data/pics/pointing-down-finger-svgrepo-com.svg';
 
 import { useState } from 'react';
+import Container from 'react-bootstrap/Container';
 
 export function SpoilerBar(props) {
     const [isShown, setIsShown] = useState(true);
@@ -19,7 +20,7 @@ export function SpoilerBar(props) {
     }
 
     return (
-        <div className='spoilerBar'
+        <Container className='spoilerBar'
             onClick={changeSpoiler}
         >
             <h2>{props.name}</h2>
@@ -27,6 +28,6 @@ export function SpoilerBar(props) {
                 src={isShown ? leftFinger : downFinger} 
                 alt='Pointer'
             />
-        </div>
+        </Container>
     )
 }

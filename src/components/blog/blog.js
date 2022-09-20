@@ -1,7 +1,10 @@
 import ShowBlog from "./showBlog";
-import Spinner from "../spinner/spinner";
+import Spinner from 'react-bootstrap/Spinner';
 import { useSelector } from "react-redux";
 import { selectMedium, isLoadingMedium, hasErrorMedium } from "../../pages/blogEntry/blogSlice";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+
 
 export function Blog() {
     const medium = useSelector(selectMedium);
@@ -17,7 +20,7 @@ export function Blog() {
     
     if (isLoading) {
         return (
-        <Spinner />
+            <Spinner animation="border" />
         )
     }
 
@@ -29,15 +32,15 @@ export function Blog() {
 
     return (
         
-        <div className="container">
-            <div className="row">
+        <Container>
+            <Row>
                 {
                     posts.map((post, index) => (
                         <ShowBlog key={index} {...post} {...profile} {...index} />
                       ))
                 }
-            </div>
-        </div>
+            </Row>
+        </Container>
         
     )
 }

@@ -3,10 +3,11 @@ import { ToText, withRouter } from "../../functions/helperFunctions";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import "./showBlog.css";
+import Col from 'react-bootstrap/Col';
 
 function ShowBlog(props, p) {
   return (
-    <div className="col-md-4 col-sm-6 col-xs-12 grid">
+    <Col md={4} sm= {6} cs={12} id='grid'>
       <div className="cardsmall">
         <div
           className="cardpost__image"
@@ -82,7 +83,7 @@ function ShowBlog(props, p) {
           </span>
         </div>
       </div>
-    </div>
+    </Col>
   );
 }
 

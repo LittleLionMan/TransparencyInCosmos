@@ -1,24 +1,11 @@
-.generalValInfo {
-    background-color: white;
-    align-items: center;
+.info-c {
+    min-width: 300px;
 }
 
-.vContainer {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
+.info-c h2 {
+    margin-top: 2rem;
 }
 
-.info {
-    height: 20em;
-    width: 40%;
-    background-color: aqua;
-    margin: 1em;
+.details {
+    word-wrap: break-word;
 }
-
-.generalInfo ul {
-    list-style-type:square;
-}
-
