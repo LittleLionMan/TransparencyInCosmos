@@ -7,4 +7,9 @@
 .chartContainer {
     height: 50em;
     width: 100%;
+    overflow: auto;
+}
+
+.recharts-surface {
+    overflow: auto;
 }

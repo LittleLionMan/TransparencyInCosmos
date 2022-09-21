@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Spinner from 'react-bootstrap/Spinner';
 
-import { selectVals, selectDelegations, loadDelegations, isLoadingData, isLoadingDelegations, loadValI, selectSlashes, loadSlashes } from "../../data/dataSlice";
+import { selectVals, selectDelegations, loadDelegations, isLoadingData, isLoadingDelegations, loadValI, selectSlashes, loadSlashes, selectHeight } from "../../data/dataSlice";
 import { selectBondedToken } from "../chain/bondedTokenSlice";
 import { objSearch } from "../../functions/helperFunctions";
 import { selectVal } from "./validatorSlide";
@@ -24,6 +24,7 @@ export function Validator() {
     const loading = useSelector(isLoadingData);
     const loadingDelegations = useSelector(isLoadingDelegations);
     const numberSlashes = useSelector(selectSlashes);
+    const height = useSelector(selectHeight);
 
     if (unstoredVals[1] !== undefined) {
         localStorage.setItem('vals', JSON.stringify(unstoredVals));
@@ -33,6 +34,10 @@ export function Validator() {
         localStorage.setItem('validator', unstoredValidator);
     }
 
+    if (height.result.response.last_block_height !== 0) {
+        localStorage.setItem('height', height.result.response.last_block_height)
+    }
+
     if (unstoredBondedToken !== "") {
         localStorage.setItem('bondedToken', unstoredBondedToken);
     }
@@ -40,14 +45,15 @@ export function Validator() {
     const vals = JSON.parse(localStorage.getItem('vals'));
     const validator = localStorage.getItem('validator');
     const bondedToken = localStorage.getItem('bondedToken');
+    const blockHeight = localStorage.getItem('height');
 
     const val = (vals.find(val => val.description.moniker === validator));
 
     useEffect(() => {
         dispatch(loadValI(objSearch('loadValI', chain) + val.operator_address))
         dispatch(loadDelegations(objSearch('loadDelegations', chain) + val.operator_address + "/delegations?pagination.limit=100000"));
-        dispatch(loadSlashes(objSearch('loadSlashes', chain) + val.operator_address + "/slashes?endingHeight=4716616"));
-    }, [chain, dispatch, val.operator_address]);
+        dispatch(loadSlashes(objSearch('loadSlashes', chain) + val.operator_address + `/slashes?endingHeight=${blockHeight}`));
+    }, [chain, dispatch, blockHeight, val.operator_address]);
     
 
     const countHandler = (arr) => {
@@ -94,7 +100,7 @@ export function Validator() {
                 <ListGroup>
                     {websiteHandler()}
                     <ListGroup.Item><b>Details: </b>{val.description.details}</ListGroup.Item>                  
-                    <ListGroup.Item><b>Stake: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : delegatedTokens + " Coins"}</ListGroup.Item>
+                    <ListGroup.Item><b>Stake: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Intl.NumberFormat().format(delegatedTokens) + " Coins"}</ListGroup.Item>
                     <ListGroup.Item><b>Address: </b>{val.operator_address}</ListGroup.Item>
                     <ListGroup.Item><b>Commission: </b>{Math.round(val.commission.commission_rates.rate * 100) + " %"}</ListGroup.Item>
                 </ListGroup>
@@ -111,9 +117,9 @@ export function Validator() {
                         <h2>Decentralization</h2>
                         <ListGroup variant='flush'>
                             <ListGroup.Item><b>Stake: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : (Math.round(delegatedTokens * 10000/bondedToken) / 100)+ "%"} </ListGroup.Item>
-                            <ListGroup.Item><b>Delegations: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : delegations.delegation_responses.length + " (>1 Coin: " + Math.round(100 * moreThanOne.length/delegations.delegation_responses.length) + "%)"}</ListGroup.Item>
+                            <ListGroup.Item><b>Delegations: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Intl.NumberFormat().format(delegations.delegation_responses.length) + " (>1 Coin: " + Math.round(100 * moreThanOne.length/delegations.delegation_responses.length) + "%)"}</ListGroup.Item>
                             <ListGroup.Item><b>Average Delegation: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Math.round(delegatedTokens/delegations.delegation_responses.length) + " Coins (>1 Coin: " + Math.round(countHandler(moreThanOne)/moreThanOne.length) + " Coins)"}</ListGroup.Item>
-                            <ListGroup.Item><b>Largest Delegation: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Math.round(Math.max(...arrHandler(delegations.delegation_responses)) / 1000000) + " Coins"}</ListGroup.Item>
+                            <ListGroup.Item><b>Largest Delegation: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Intl.NumberFormat().format(Math.round(Math.max(...arrHandler(delegations.delegation_responses)) / 1000000)) + " Coins"}</ListGroup.Item>
                         </ListGroup>
                         
                     </Col>

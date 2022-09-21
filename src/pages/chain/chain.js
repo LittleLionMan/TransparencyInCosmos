@@ -11,7 +11,7 @@ import { ChainTable } from "../../components/chainTable/chainTable";
 import { SpoilerBar } from "../../components/spoilerBar/spoilerBar";
 import { setChain } from './chainSlide';
 import { setBondedToken, selectBondedToken } from "./bondedTokenSlice";
-import { loadBank, selectBank, selectVals, loadVals, coingeckoData, selectcoingeckoData, selectCommunityPool, loadCommunityPool, loadProposals} from "../../data/dataSlice";
+import { loadBank, selectBank, selectVals, loadVals, coingeckoData, selectcoingeckoData, selectCommunityPool, loadCommunityPool, loadProposals, loadHeight, selectHeight} from "../../data/dataSlice";
 
 import { objSearch } from "../../functions/helperFunctions";
 
@@ -25,6 +25,7 @@ export function Chain() {
     const cp = useSelector(selectCommunityPool);
     const cgData = useSelector(selectcoingeckoData);
     const bondedToken = useSelector(selectBondedToken);
+    const height = useSelector(selectHeight);
     
     useEffect(() => {
         dispatch(loadBank(objSearch('loadBank', chain) + objSearch("denom", chain)));
@@ -32,7 +33,7 @@ export function Chain() {
         dispatch(loadCommunityPool(objSearch("loadCommunityPool", chain)));
         dispatch(coingeckoData(objSearch("cgId", chain)));
         dispatch(loadProposals(objSearch('loadProposals', chain))); 
-
+        dispatch(loadHeight(objSearch("loadHeight", chain)));
         dispatch(setChain(chain));
         
     }, [dispatch, chain]);
@@ -65,6 +66,7 @@ export function Chain() {
                 <ListGroup horizontal>
                     <ListGroup.Item><a href={cgData.links.homepage[0]}>Website </a></ListGroup.Item>
                     <ListGroup.Item>Price: {cgData.market_data.current_price.usd}$</ListGroup.Item>
+                    <ListGroup.Item>Block: {Intl.NumberFormat().format(height.result.response.last_block_height)}</ListGroup.Item>
                 </ListGroup>
             </Container>
             <SpoilerBar 
@@ -73,10 +75,10 @@ export function Chain() {
             />
             <ListGroup id='si' style={{display: 'none'}}>
                 <ListGroup.Item><b>Price-change in 24h: </b>{Math.round(cgData.market_data.price_change_percentage_24h * 100) / 100}%</ListGroup.Item>
-                <ListGroup.Item><b>Marketcap: </b>{Math.round(cgData.market_data.current_price.usd * bank.amount.amount / 1000000)}$ (Rank: {cgData.market_data.market_cap_rank})</ListGroup.Item>
-                <ListGroup.Item><b>Supply: </b>{Math.round(bank.amount.amount / 1000000)} Coins</ListGroup.Item>
-                <ListGroup.Item><b>Staked: </b>{bondedToken} Coins ({Math.round(bondedToken / (bank.amount.amount / 1000000000))/10}%)</ListGroup.Item>
-                <ListGroup.Item><b>Community Pool: </b>{Math.round(cp.pool[cp.pool.length - 1].amount / 1000000)} Coins ({Math.round(cp.pool[cp.pool.length - 1].amount / bank.amount.amount * 10000) / 100}%)</ListGroup.Item>  
+                <ListGroup.Item><b>Marketcap: </b>{Intl.NumberFormat().format(Math.round(cgData.market_data.current_price.usd * bank.amount.amount / 1000000))}$ (Rank: {cgData.market_data.market_cap_rank})</ListGroup.Item>
+                <ListGroup.Item><b>Supply: </b>{Intl.NumberFormat().format(Math.round(bank.amount.amount / 1000000))} Coins</ListGroup.Item>
+                <ListGroup.Item><b>Staked: </b>{Intl.NumberFormat().format(bondedToken)} Coins ({Math.round(bondedToken / (bank.amount.amount / 1000000000))/10}%)</ListGroup.Item>
+                <ListGroup.Item><b>Community Pool: </b>{Intl.NumberFormat().format(Math.round(cp.pool[cp.pool.length - 1].amount / 1000000))} Coins ({Math.round(cp.pool[cp.pool.length - 1].amount / bank.amount.amount * 10000) / 100}%)</ListGroup.Item>  
             </ListGroup>
             <ChainTable />
         </Container>

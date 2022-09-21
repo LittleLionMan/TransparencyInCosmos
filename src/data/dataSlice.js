@@ -72,6 +72,15 @@ export const loadSlashes = createAsyncThunk(
     }
 )
 
+export const loadHeight = createAsyncThunk(
+    "data/loadHeight",
+    async (loadHeight) => {
+        const response = await fetch(loadHeight);
+        const jsonResponse = await response.json();
+        return jsonResponse; 
+    }
+)
+
 const dataSlice = createSlice({
     name: "data",
     initialState: {
@@ -109,6 +118,7 @@ const dataSlice = createSlice({
             ]
         },
         slashes: {slashes: []},
+        height: {result: {response: {last_block_height: 0}}},
         delegations: {delegation_responses: []},
         proposals: {proposals: []},
         isLoadingData: false,
@@ -209,6 +219,19 @@ const dataSlice = createSlice({
                 state.isLoadingData = false;
                 state.hasErrorData = true;
             })
+            .addCase(loadHeight.pending, (state) => {
+                state.isLoadingData = true;
+                state.hasErrorData = false;
+            })
+            .addCase(loadHeight.fulfilled, (state, action) => {
+                state.isLoadingData = false;
+                state.hasErrorData = false;
+                state.height = action.payload;
+            })
+            .addCase(loadHeight.rejected, (state) => {
+                state.isLoadingData = false;
+                state.hasErrorData = true;
+            })
             .addCase(loadBank.pending, (state) => {
                 state.isLoadingData = true;
                 state.hasErrorData = false;
@@ -235,6 +258,7 @@ export const selectBank = (state) => state.data.bank;
 export const selectDelegations = (state) => state.data.delegations;
 export const selectProposals = (state) => state.data.proposals;
 export const selectSlashes = (state) => state.data.slashes;
+export const selectHeight = (state) => state.data.height;
 export const selectCommunityPool = (state) => state.data.communityPool;
 
 export default dataSlice.reducer;
