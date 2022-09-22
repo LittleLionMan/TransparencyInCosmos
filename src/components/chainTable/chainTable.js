@@ -73,6 +73,7 @@ export const ChainTable = () => {
                 <SpoilerBar 
                     name='Distribution Graph'
                     containerName='valGraph'
+                    barName='dist-graph'
                 />
                 <div id='valGraph' style={{display: 'none'}}>
                     <InfoBar props="valChartI"/>

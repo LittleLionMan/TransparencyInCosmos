@@ -20,8 +20,10 @@ export function SpoilerBar(props) {
     }
 
     return (
-        <Container className='spoilerBar'
+        <Container 
+            className='spoilerBar'
             onClick={changeSpoiler}
+            id={props.barName}
         >
             <h2>{props.name}</h2>
             <img 
