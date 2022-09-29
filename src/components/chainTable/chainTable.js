@@ -117,7 +117,7 @@ export const ChainTable = () => {
                                             style={decentralize(val)}
                                         >{(Math.round(val.tokens / bondedToken / 100)) / 100}% ({activeVals.indexOf(val) + 1})</td>
                                         <td>?/{proposals.proposals.length}</td>
-                                        <td></td>
+                                        <td>?</td>
                                     </tr>
                                 )
                         })

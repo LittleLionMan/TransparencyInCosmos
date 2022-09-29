@@ -18,10 +18,10 @@ export const loadVals = createAsyncThunk(
     }
 )
 
-export const loadValI = createAsyncThunk(
-    "data/loadValI",
-    async (loadValI) => {
-        const response = await fetch(loadValI);
+export const loadSelfStake = createAsyncThunk(
+    "data/loadSelfStake",
+    async (loadSelfStake) => {
+        const response = await fetch(loadSelfStake);
         const jsonResponse = await response.json();
         return jsonResponse; 
     }
@@ -103,13 +103,16 @@ const dataSlice = createSlice({
                 moniker: ""
             }
         },
-        valI: {
-            result: {operator_address: ""}
-        },
         bank: {
             amount: {
                 amount: 0
             }
+        },
+        selfStake: {result: [{
+                delegation: {
+                    share: ""
+                }
+            }]
         },
         communityPool: {
             pool: [
@@ -154,16 +157,16 @@ const dataSlice = createSlice({
                 state.isLoadingData = false;
                 state.hasErrorData = true;
             })
-            .addCase(loadValI.pending, (state) => {
+            .addCase(loadSelfStake.pending, (state) => {
                 state.isLoadingData = true;
                 state.hasErrorData = false;
             })
-            .addCase(loadValI.fulfilled, (state, action) => {
+            .addCase(loadSelfStake.fulfilled, (state, action) => {
                 state.isLoadingData = false;
                 state.hasErrorData = false;
-                state.valI = action.payload;
+                state.selfStake = action.payload;
             })
-            .addCase(loadValI.rejected, (state) => {
+            .addCase(loadSelfStake.rejected, (state) => {
                 state.isLoadingData = false;
                 state.hasErrorData = true;
             })
@@ -253,7 +256,7 @@ export const isLoadingDelegations = (state) => state.data.isLoadingDelegations;
 export const hasErrorData = (state) => state.data.hasErrorData;
 export const selectcoingeckoData = (state) => state.data.coingeckoData;
 export const selectVals = (state) => state.data.vals.validators;
-export const selectValI = (state) => state.data.valI;
+export const selectSelfStake = (state) => state.data.selfStake;
 export const selectBank = (state) => state.data.bank;
 export const selectDelegations = (state) => state.data.delegations;
 export const selectProposals = (state) => state.data.proposals;

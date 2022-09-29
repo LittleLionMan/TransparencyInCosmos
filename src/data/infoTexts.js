@@ -2,11 +2,12 @@ export const info = [
     {
     name: "valChartI",
     data: [
-        {header: "nakamoto?"},
+        {header: "Distribution"},
+        {text: <b>nakamoto</b>},
         {text: "explanation here"},
-        {header: "voting majority?"},
+        {text: <b>voting majority?</b>},
         {text: "testtesttesttesttesttesttesttesttesttest testtesttesttesttesttesttesttest testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestv"},
-        {header: "66%?"}
+        {text: <b>66%?</b>}
         ] 
     },
 

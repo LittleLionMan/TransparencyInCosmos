@@ -1,8 +1,9 @@
 //import './infoBar.css';
 import { info } from '../../data/infoTexts';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Popover from 'react-bootstrap/Popover';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+
 
 export function InfoBar (props) {
     const keyI = props.props;
@@ -14,7 +15,7 @@ export function InfoBar (props) {
         }
     })
     
-    return (
+    /* return (
         <OverlayTrigger
             trigger="click"
             rootClose={true}
@@ -48,5 +49,48 @@ export function InfoBar (props) {
         >
             <Button variant="secondary">?</Button>
         </OverlayTrigger>
-    )
+    ) */
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+  
+    return (
+      <>
+        <Button variant="secondary" onClick={handleShow} className="me-2">
+          ?
+        </Button>
+        <Offcanvas 
+            show={show} 
+            onHide={handleClose} 
+            placement='end'
+        >
+            {
+                arr.map(element => {
+                    let keys = Object.keys(element);
+                    let key = keys[0];
+                        counter++;
+                            switch(key) {
+                                case 'header':
+                                    return (
+                                        <Offcanvas.Header closeButton as="h3" key={counter}>
+                                            <Offcanvas.Title>{element.header}</Offcanvas.Title>
+                                        </Offcanvas.Header>
+                                    );
+                                case 'text':
+                                    return (
+                                        <Offcanvas.Body key={counter}>{element.text}</Offcanvas.Body>
+                                    )
+                                default:
+                                    return (
+                                        <Offcanvas.Body key={counter}>hier lief was falsch</Offcanvas.Body>
+                                    )
+                            }
+                            
+                        })
+                    }
+        </Offcanvas>
+      </>
+    );
 }

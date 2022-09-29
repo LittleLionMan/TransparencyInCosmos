@@ -9,3 +9,13 @@
 .details {
     word-wrap: break-word;
 }
+
+.buttons {
+    margin: 2px 2px;
+    width: 10%;
+}
+
+.popover {
+    overflow: auto;
+    max-height: 20%;
+}
