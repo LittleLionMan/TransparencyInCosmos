@@ -81,6 +81,24 @@ export const loadHeight = createAsyncThunk(
     }
 )
 
+export const loadVotes = createAsyncThunk(
+    "data/loadVotes",
+    async (loadVotes) => {
+        const response = await fetch(loadVotes);
+        const jsonResponse = await response.json();
+        return jsonResponse; 
+    }
+)
+
+export const loadAuthz = createAsyncThunk(
+    "data/loadAuthz",
+    async (loadAuthz) => {
+        const response = await fetch(loadAuthz);
+        const jsonResponse = await response.json();
+        return jsonResponse; 
+    }
+)
+
 const dataSlice = createSlice({
     name: "data",
     initialState: {
@@ -102,6 +120,22 @@ const dataSlice = createSlice({
             description: {
                 moniker: ""
             }
+        },
+        votes: {
+            txs: [{
+                body: {
+                    messages: [{proposal_id: ""}]
+                }
+            }]
+        },
+        authz: {
+            txs: [{
+                body: {
+                   messages: [{
+                    msgs: [{proposal_id: ""}]
+                   }] 
+                }
+            }]
         },
         bank: {
             amount: {
@@ -235,6 +269,32 @@ const dataSlice = createSlice({
                 state.isLoadingData = false;
                 state.hasErrorData = true;
             })
+            .addCase(loadVotes.pending, (state) => {
+                state.isLoadingData = true;
+                state.hasErrorData = false;
+            })
+            .addCase(loadVotes.fulfilled, (state, action) => {
+                state.isLoadingData = false;
+                state.hasErrorData = false;
+                state.votes = action.payload;
+            })
+            .addCase(loadVotes.rejected, (state) => {
+                state.isLoadingData = false;
+                state.hasErrorData = true;
+            })
+            .addCase(loadAuthz.pending, (state) => {
+                state.isLoadingData = true;
+                state.hasErrorData = false;
+            })
+            .addCase(loadAuthz.fulfilled, (state, action) => {
+                state.isLoadingData = false;
+                state.hasErrorData = false;
+                state.authz = action.payload;
+            })
+            .addCase(loadAuthz.rejected, (state) => {
+                state.isLoadingData = false;
+                state.hasErrorData = true;
+            })
             .addCase(loadBank.pending, (state) => {
                 state.isLoadingData = true;
                 state.hasErrorData = false;
@@ -261,6 +321,8 @@ export const selectBank = (state) => state.data.bank;
 export const selectDelegations = (state) => state.data.delegations;
 export const selectProposals = (state) => state.data.proposals;
 export const selectSlashes = (state) => state.data.slashes;
+export const selectVotes = (state) => state.data.votes;
+export const selectAuthz = (state) => state.data.authz;
 export const selectHeight = (state) => state.data.height;
 export const selectCommunityPool = (state) => state.data.communityPool;
 

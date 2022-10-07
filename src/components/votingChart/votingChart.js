@@ -1,6 +1,4 @@
-import { PieChart, Pie } from 'recharts';
-import "./votingChart.css";
-
+import { PieChart, Pie, ResponsiveContainer } from 'recharts';
 
 export function VotingChart(props) {
     
@@ -11,7 +9,8 @@ export function VotingChart(props) {
 
 
     return (
-            <PieChart width={200} height={120}>
+        <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
                 <Pie
                     dataKey="value"
                     startAngle={180}
@@ -25,7 +24,7 @@ export function VotingChart(props) {
                     nameKey="name"
                 />
             </PieChart>
-        
+        </ResponsiveContainer>
     );
   
 }

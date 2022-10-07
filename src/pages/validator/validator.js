@@ -11,8 +11,9 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import Button from 'react-bootstrap/Button';
 
+import { ValVoteChart } from "../../components/valVoteChart/valVoteChart";
 import { VotingChart } from "../../components/votingChart/votingChart";
-import { selectVals, selectDelegations, loadDelegations, isLoadingData, isLoadingDelegations, selectSlashes, loadSlashes, selectHeight, loadSelfStake, selectSelfStake, selectProposals } from "../../data/dataSlice";
+import { selectVals, selectDelegations, /* loadDelegations */ isLoadingData, isLoadingDelegations, selectSlashes, loadSlashes, selectHeight, loadSelfStake, selectSelfStake, selectProposals, loadAuthz, selectAuthz, loadVotes, selectVotes } from "../../data/dataSlice";
 import { selectBondedToken } from "../chain/bondedTokenSlice";
 import { objSearch } from "../../functions/helperFunctions";
 import { selectVal } from "./validatorSlide";
@@ -32,6 +33,30 @@ export function Validator() {
     const loadingDelegations = useSelector(isLoadingDelegations);
     const numberSlashes = useSelector(selectSlashes);
     const height = useSelector(selectHeight);
+    const votes = useSelector(selectVotes);
+    const authz = useSelector(selectAuthz);
+    let countedVotes = [
+        {
+            subject: "Yes",
+            votes: 0
+        },
+        {
+            subject: "No",
+            votes: 0
+        },
+        {
+            subject: "No with veto",
+            votes: 0
+        },
+        {
+            subject: "Abstain",
+            votes: 0
+        },
+        {
+            subject: "Not V.",
+            votes: 0
+        },
+    ]
     let counter = 0;
 
     if (unstoredVals[1] !== undefined) {
@@ -59,18 +84,21 @@ export function Validator() {
     const validator = localStorage.getItem('validator');
     const bondedToken = localStorage.getItem('bondedToken');
     const blockHeight = localStorage.getItem('height');
-
-    const val = (vals.find(val => val.description.moniker === validator));
     
+    const val = (vals.find(val => val.description.moniker === validator));
     const { prefix, data } = fromBech32(val.operator_address);
     const address = toBech32(prefix.split('valoper')[0], data);
 
     useEffect(() => {
-        dispatch(loadDelegations(objSearch('loadDelegations', chain) + val.operator_address + "/delegations?pagination.limit=100000"));
         dispatch(loadSlashes(objSearch('loadSlashes', chain) + val.operator_address + `/slashes?endingHeight=${blockHeight}`));
         dispatch(loadSelfStake(objSearch('loadSelfStake', chain) + address + '/delegations'))
+        dispatch(loadVotes(objSearch('loadVotes', chain) + address + '%27'));
+        dispatch(loadAuthz(objSearch('loadAuthz', chain) + address + '%27'));
     }, [chain, dispatch, blockHeight, val.operator_address, address]);
-    
+
+    useEffect(() => {
+        //dispatch(loadDelegations(objSearch('loadDelegations', chain) + val.operator_address + "/delegations?pagination.limit=100000"));
+    }, [chain, dispatch, val.operator_address])
 
     const countHandler = (arr) => {
         let sum = 0;
@@ -100,6 +128,52 @@ export function Validator() {
         }
     }
 
+    const votingInfo = (propId) => {
+        let vote = ''
+        authz.txs.some(element => {
+            const array = element.body.messages[0].msgs[0];
+            if (array.proposal_id === propId) {
+                vote = array.option;
+            }
+            return vote
+        })
+
+        votes.txs.some(element => {
+            const array = element.body.messages[0];
+            if (array.proposal_id === propId) {
+                vote = array.option;
+            }
+            return vote
+        })
+        if (vote === "") {
+            vote = "NO VOTE";
+        } else {
+            vote = vote.slice(12);
+        }
+        return vote;
+    }
+
+    const bcHandler = (vI) => {
+        switch(vI) {
+            case "YES":
+                countedVotes[0].votes++
+                return "success";
+            case  "NO":
+                countedVotes[1].votes++
+                return "danger";
+            case "NO_WITH_VETO":
+                countedVotes[2].votes++
+                return "info";
+            case "ABSTAIN":
+                countedVotes[3].votes++
+                return "dark";
+            default: 
+            countedVotes[4].votes++
+                return "light"
+        }
+        
+    }
+
     if (vals[0] === undefined) {
         return (
             <h1>Navigate back</h1>
@@ -110,7 +184,7 @@ export function Validator() {
     const moreThanOne = delegations.delegation_responses.filter(element => element.balance.amount > 1000000);
     
     return (
-        <Container style={{ marginTop: 70}}>
+        <Container style={{ marginTop: 70, marginBottom: 20}}>
             <h1>{val.description.moniker}</h1>
             <Container className="details">
                 <ListGroup>
@@ -143,9 +217,13 @@ export function Validator() {
                 <Row>
                     <Col className="info-c">
                         <h2>Governance</h2>
+                        <ValVoteChart data={countedVotes}/>
                         {
+                        loading ? <Spinner animation="border" /> :
                         proposals.proposals.map(element => {
                             counter++;
+                            let vI = votingInfo(element.proposal_id);
+                            
                             const data = [
                                 { name: 'Yes', value: Number(element.final_tally_result.yes), fill: '#00ff00' },
                                 { name: 'No', value: Number(element.final_tally_result.no), fill: '#ff0000' },
@@ -159,15 +237,22 @@ export function Validator() {
                                     placement='top'
                                     overlay={
                                         <Popover className="popover">
-                                            <Popover.Header as="h3">{element.content.title}</Popover.Header>
+                                            <Popover.Header as="h3"><b>{element.proposal_id}.</b> {element.content.title}</Popover.Header>
                                             <Popover.Body>
-                                                <VotingChart data={data} />
+                                                <div className="chartContainer">
+                                                    <VotingChart data={data} />
+                                                </div>
+                                                <b>Vote:</b> {vI}
+                                                <br />
+                                                <b>Status:</b> {element.status.slice(16)}
+                                                <br />
+                                                <br />
                                                 {element.content.description}
                                             </Popover.Body>
                                         </Popover>
                                     }
                                 >
-                                    <Button variant="light" className="buttons">{element.proposal_id}</Button>
+                                    <Button variant={bcHandler(vI)} className="buttons">{element.proposal_id}</Button>
                                 </OverlayTrigger>
                             )
                         })

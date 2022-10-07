@@ -103,7 +103,7 @@ export const ChainTable = () => {
                     </thead>
                     <tbody>
                     {
-                        loading ? <Spinner animation="border" /> :
+                        loading ? <tr><td><Spinner animation="border" /></td></tr> :
                         
                         cVals.map(val => {
                                 counter ++;

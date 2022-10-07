@@ -1,5 +1,11 @@
+.chartContainer {
+    height: 120px;
+}
+
 .info-c {
     min-width: 300px;
+    max-height: 300px;
+    overflow: auto;
 }
 
 .info-c h2 {
@@ -17,5 +23,6 @@
 
 .popover {
     overflow: auto;
-    max-height: 20%;
+    max-height: 50%;
+    min-width: 40%;
 }
