@@ -5,6 +5,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Search } from "../searchBar/search";
+import { GrazProvider, mainnetChains } from "graz";
+import { Wallet } from '../wallet/wallet';
 
 import { clearChain } from '../../pages/chain/chainSlide';
 import { clearVal } from '../../pages/validator/validatorSlide';
@@ -26,6 +28,14 @@ export function NavBar() {
         return (
             <Navbar bg="light" expand="lg" fixed="top">
                 <Container>
+                    <GrazProvider
+                        // optional
+                        grazOptions={{
+                        defaultChain: mainnetChains.cosmos,
+                        }}
+                        >
+                        <Wallet />
+                    </GrazProvider>
                     <Navbar.Collapse className="justify-content-end" />
                     <Search />
                 </Container>
