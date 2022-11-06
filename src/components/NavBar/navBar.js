@@ -31,7 +31,7 @@ export function NavBar() {
                     <GrazProvider
                         // optional
                         grazOptions={{
-                        defaultChain: mainnetChains.cosmos,
+                        defaultChain: mainnetChains.cosmoshub,
                         }}
                         >
                         <Wallet />
@@ -45,6 +45,14 @@ export function NavBar() {
         return (
             <Navbar bg="light" expand="lg" fixed="top">
                 <Container>
+                    <GrazProvider
+                        // optional
+                        grazOptions={{
+                        defaultChain: mainnetChains.cosmoshub,
+                        }}
+                        >
+                        <Wallet />
+                    </GrazProvider>
                     <Nav.Link onClick={navHome}>Home</Nav.Link>
                     <Navbar.Collapse className="justify-content-end" />
                     <Search />

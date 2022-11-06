@@ -239,7 +239,7 @@ export function Validator() {
                                         <Popover className="popover">
                                             <Popover.Header as="h3"><b>{element.proposal_id}.</b> {element.content.title}</Popover.Header>
                                             <Popover.Body>
-                                                <div className="chartContainer">
+                                                <div className="voteChartContainer">
                                                     <VotingChart data={data} />
                                                 </div>
                                                 <b>Vote:</b> {vI}

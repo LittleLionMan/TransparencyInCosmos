@@ -198,7 +198,7 @@ export function ValChart({aVals, bToken, loading}) {
   );
 
   return (
-    <div className="chartContainer">
+    <div className="graphContainer">
       <ResponsiveContainer>
         <PieChart>
           <Pie 

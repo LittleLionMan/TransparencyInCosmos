@@ -4,8 +4,8 @@
     overflow: scroll; 
 }
 
-.chartContainer {
-    height: 50em;
+.graphContainer {
+    height: 51em;
     width: 100%;
     overflow: auto;
 }
