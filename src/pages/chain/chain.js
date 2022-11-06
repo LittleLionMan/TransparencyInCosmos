@@ -76,9 +76,9 @@ export function Chain() {
             <ListGroup id='si' style={{display: 'none'}}>
                 <ListGroup.Item><b>Price-change in 24h: </b>{Math.round(cgData.market_data.price_change_percentage_24h * 100) / 100}%</ListGroup.Item>
                 <ListGroup.Item><b>Marketcap: </b>{Intl.NumberFormat().format(Math.round(cgData.market_data.current_price.usd * bank.amount.amount / 1000000))}$ (Rank: {cgData.market_data.market_cap_rank})</ListGroup.Item>
-                <ListGroup.Item><b>Supply: </b>{Intl.NumberFormat().format(Math.round(bank.amount.amount / 1000000))} Coins</ListGroup.Item>
-                <ListGroup.Item><b>Staked: </b>{Intl.NumberFormat().format(bondedToken)} Coins ({Math.round(bondedToken / (bank.amount.amount / 1000000000))/10}%)</ListGroup.Item>
-                <ListGroup.Item><b>Community Pool: </b>{Intl.NumberFormat().format(Math.round(cp.pool[cp.pool.length - 1].amount / 1000000))} Coins ({Math.round(cp.pool[cp.pool.length - 1].amount / bank.amount.amount * 10000) / 100}%)</ListGroup.Item>  
+                <ListGroup.Item><b>Supply: </b>{Intl.NumberFormat().format(Math.round(bank.amount.amount / 1000000))} {objSearch("coin", chain)}</ListGroup.Item>
+                <ListGroup.Item><b>Staked: </b>{Intl.NumberFormat().format(bondedToken)} {objSearch("coin", chain)} ({Math.round(bondedToken / (bank.amount.amount / 1000000000))/10}%)</ListGroup.Item>
+                <ListGroup.Item><b>Community Pool: </b>{Intl.NumberFormat().format(Math.round(cp.pool[cp.pool.length - 1].amount / 1000000))} {objSearch("coin", chain)} ({Math.round(cp.pool[cp.pool.length - 1].amount / bank.amount.amount * 10000) / 100}%)</ListGroup.Item>  
             </ListGroup>
             <ChainTable />
         </Container>

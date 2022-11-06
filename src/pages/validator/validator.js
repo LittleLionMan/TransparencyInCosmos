@@ -190,9 +190,9 @@ export function Validator() {
                 <ListGroup>
                     {websiteHandler()}
                     <ListGroup.Item><b>Details: </b>{val.description.details}</ListGroup.Item>                  
-                    <ListGroup.Item><b>Stake: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Intl.NumberFormat().format(delegatedTokens) + " Coins"}</ListGroup.Item>
+                    <ListGroup.Item><b>Stake: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Intl.NumberFormat().format(delegatedTokens) + " " + objSearch("coin", chain)}</ListGroup.Item>
                     <ListGroup.Item><b>Address: </b>{val.operator_address}</ListGroup.Item>
-                    <ListGroup.Item><b>Selfstaked: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Intl.NumberFormat().format(Math.round(selfStake.result[0].delegation.shares/1000000)) + " Coins (" + Math.round(Math.round(selfStake.result[0].delegation.shares/1000000)/delegatedTokens * 100000)/1000 + "%)"}</ListGroup.Item>
+                    <ListGroup.Item><b>Selfstaked: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Intl.NumberFormat().format(Math.round(selfStake.result[0].delegation.shares/1000000)) + ` ${objSearch("coin", chain)} (` + Math.round(Math.round(selfStake.result[0].delegation.shares/1000000)/delegatedTokens * 100000)/1000 + "%)"}</ListGroup.Item>
                     <ListGroup.Item><b>Commission: </b>{Math.round(val.commission.commission_rates.rate * 100) + " %"}</ListGroup.Item>
                 </ListGroup>
             </Container>
@@ -208,9 +208,9 @@ export function Validator() {
                         <h2>Decentralization</h2>
                         <ListGroup variant='flush'>
                             <ListGroup.Item><b>Stake: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : (Math.round(delegatedTokens * 10000/bondedToken) / 100)+ "%"} </ListGroup.Item>
-                            <ListGroup.Item><b>Delegations: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Intl.NumberFormat().format(delegations.delegation_responses.length) + " (>1 Coin: " + Math.round(100 * moreThanOne.length/delegations.delegation_responses.length) + "%)"}</ListGroup.Item>
-                            <ListGroup.Item><b>Average Delegation: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Math.round(delegatedTokens/delegations.delegation_responses.length) + " Coins (>1 Coin: " + Math.round(countHandler(moreThanOne)/moreThanOne.length) + " Coins)"}</ListGroup.Item>
-                            <ListGroup.Item><b>Largest Delegation: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Intl.NumberFormat().format(Math.round(Math.max(...arrHandler(delegations.delegation_responses)) / 1000000)) + " Coins"}</ListGroup.Item>
+                            <ListGroup.Item><b>Delegations: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Intl.NumberFormat().format(delegations.delegation_responses.length) + ` (>1 ${objSearch("coin", chain)}: ` + Math.round(100 * moreThanOne.length/delegations.delegation_responses.length) + "%)"}</ListGroup.Item>
+                            <ListGroup.Item><b>Average Delegation: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Math.round(delegatedTokens/delegations.delegation_responses.length) + ` ${objSearch("coin", chain)} (>1 ${objSearch("coin", chain)}: ` + Math.round(countHandler(moreThanOne)/moreThanOne.length) + ` ${objSearch("coin", chain)})`}</ListGroup.Item>
+                            <ListGroup.Item><b>Largest Delegation: </b>{loadingDelegations ? <Spinner animation="border" size="sm"/> : Intl.NumberFormat().format(Math.round(Math.max(...arrHandler(delegations.delegation_responses)) / 1000000)) + ` ${objSearch("coin", chain)}`}</ListGroup.Item>
                         </ListGroup>
                     </Col>
                 </Row>
