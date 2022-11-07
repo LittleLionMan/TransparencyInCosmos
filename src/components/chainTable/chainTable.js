@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import './chainTable.css';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'react-bootstrap/Spinner';
+import Form from 'react-bootstrap/Form';
 import { ValChart } from "../valChart/valChart";
 import { InfoBar } from "../InfoBar/infoBar";
 import { SpoilerBar } from "../spoilerBar/spoilerBar";
@@ -31,6 +32,28 @@ export const ChainTable = () => {
         const cVal = val.replaceAll("/", "|");
         dispatch(setVal(val));
         navigate(`/${chain}/${cVal}`);
+    }
+
+    const changeHandler = (e) => {
+
+        let input, filter, table, tr, td, i, txtValue;
+        input = e.target.value;
+        filter = input.toUpperCase();
+        table = document.getElementById("valTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+            }
+        }
     }
 
     const decentralize = (val) => {
@@ -67,6 +90,7 @@ export const ChainTable = () => {
     }
     const cVals = [...activeVals];
     shuffleArray(cVals);
+    let filter = cVals;
 
     return (
         <div className='validator' id='val' >
@@ -94,7 +118,18 @@ export const ChainTable = () => {
                 >
                     <thead>
                         <tr>
-                            <th>Name:</th>
+                            <th>
+                                Name: 
+                                <Form className="d-flex">
+                                    <Form.Control
+                                        type="search"
+                                        placeholder="Filter"
+                                        className="me-2"
+                                        aria-label="Search"
+                                        onChange={changeHandler}
+                                    />
+                                </Form>
+                            </th>
                             <th>Security:</th>
                             <th>Decentralization:</th>
                             <th>Governance:</th>
@@ -105,7 +140,7 @@ export const ChainTable = () => {
                     {
                         loading ? <tr><td><Spinner animation="border" /></td></tr> :
                         
-                        cVals.map(val => {
+                        filter.map(val => {
                                 counter ++;
                                 return (
                                     <tr key={counter} onClick={valHandler}>

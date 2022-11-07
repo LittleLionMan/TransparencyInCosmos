@@ -2,6 +2,10 @@ tbody:hover {
     cursor: pointer;
 }
 
+th {
+    vertical-align: top;
+}
+
 /* very bad solution for the problem with the fixed seize of the graph */
 @media only screen and (max-width: 1000px) { 
     #dist-graph {
