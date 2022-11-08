@@ -21,10 +21,11 @@ export const Search = () => {
   const navigate = useNavigate();
   let counter = 0;
 
+  
   const onSearchChangeHandler = (e) => {
     dispatch(setSearchTerm(e.target.value));
   };
-
+  
   const searchHandler = () => {
     Object.keys(data).forEach(name => {
       if (name === searchTerm.toLowerCase()) {

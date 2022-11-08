@@ -59,6 +59,7 @@ export function Validator() {
     ]
     let counter = 0;
 
+    localStorage.clear();
     if (unstoredVals[1] !== undefined) {
         localStorage.setItem('vals', JSON.stringify(unstoredVals));
     }
