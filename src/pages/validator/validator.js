@@ -59,7 +59,6 @@ export function Validator() {
     ]
     let counter = 0;
 
-    localStorage.clear();
     if (unstoredVals[1] !== undefined) {
         localStorage.setItem('vals', JSON.stringify(unstoredVals));
     }
@@ -138,18 +137,20 @@ export function Validator() {
             }
             return vote
         })
-
-        votes.txs.some(element => {
-            const array = element.body.messages[0];
-            if (array.proposal_id === propId) {
-                vote = array.option;
+        if (votes.txs) {
+            votes.txs.some(element => {
+                const array = element.body.messages[0];
+                if (array.proposal_id === propId) {
+                    vote = array.option;
+                }
+                return vote
+            })
+            if (vote === "") {
+                vote = "NO VOTE";
+            } else {
+                vote = vote.slice(12);
             }
-            return vote
-        })
-        if (vote === "") {
-            vote = "NO VOTE";
-        } else {
-            vote = vote.slice(12);
+            return vote;
         }
         return vote;
     }
