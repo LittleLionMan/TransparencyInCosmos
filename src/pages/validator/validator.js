@@ -13,7 +13,7 @@ import Button from 'react-bootstrap/Button';
 
 import { ValVoteChart } from "../../components/valVoteChart/valVoteChart";
 import { VotingChart } from "../../components/votingChart/votingChart";
-import { selectVals, selectDelegations, /* loadDelegations */ isLoadingData, isLoadingDelegations, selectSlashes, loadSlashes, selectHeight, loadSelfStake, selectSelfStake, selectProposals, loadAuthz, selectAuthz, loadVotes, selectVotes } from "../../data/dataSlice";
+import { selectVals, selectDelegations, loadDelegations, isLoadingData, isLoadingDelegations, selectSlashes, loadSlashes, selectHeight, loadSelfStake, selectSelfStake, selectProposals, loadAuthz, selectAuthz, loadVotes, selectVotes } from "../../data/dataSlice";
 import { selectBondedToken } from "../chain/bondedTokenSlice";
 import { objSearch } from "../../functions/helperFunctions";
 import { selectVal } from "./validatorSlide";
@@ -98,7 +98,7 @@ export function Validator() {
     }, [chain, dispatch, blockHeight, val.operator_address, address]);
 
     useEffect(() => {
-        //dispatch(loadDelegations(objSearch('loadDelegations', chain) + val.operator_address + "/delegations?pagination.limit=100000"));
+        dispatch(loadDelegations(objSearch('loadDelegations', chain) + val.operator_address + "/delegations?pagination.limit=100000"));
     }, [chain, dispatch, val.operator_address])
 
     const countHandler = (arr) => {
