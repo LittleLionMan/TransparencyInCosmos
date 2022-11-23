@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import { useDisconnect } from 'graz';
 import './search.css';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -19,6 +20,7 @@ export const Search = () => {
   const dispatch = useDispatch();
   const searchTerm = useSelector(selectSearchTerm);
   const navigate = useNavigate();
+  const { disconnect } = useDisconnect();
   let counter = 0;
 
   
@@ -31,6 +33,7 @@ export const Search = () => {
       if (name === searchTerm.toLowerCase()) {
         navigate(`/${name}`);
         dispatch(clearSearchTerm());
+        disconnect();
       }
     })
   }

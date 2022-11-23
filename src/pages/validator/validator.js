@@ -261,7 +261,7 @@ export function Validator() {
                     }
                     </Col>
                     <Col className="info-c">
-                        <h2>Commitment</h2>
+                        <h2>Contribution</h2>
                     </Col>
                 </Row>
             </Container>

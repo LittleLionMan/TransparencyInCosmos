@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const mediumData = createAsyncThunk(
     "blog/mediumData",
     async () => {
-        const response = await fetch("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@mehulkothari05");
+        const response = await fetch("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@niels33");
         const jsonResponse = await response.json();
         return jsonResponse; 
     }

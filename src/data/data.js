@@ -1,5 +1,5 @@
 export const data = {
-    agoric: {
+    /* agoric: {
         name: "Agoric",
         coin: "BLD",
         denom: "ubld",
@@ -30,7 +30,7 @@ export const data = {
         loadHeight: "https://rpc.cosmos.directory/akash/abci_info?",
         loadVotes: 'https://api-akash-ia.cosmosia.notional.ventures/cosmos/tx/v1beta1/txs?pagination.offset=0&pagination.limit=100&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.gov.v1beta1.MsgVote%27&events=message.sender=%27',
         loadAuthz: 'https://api-akash-ia.cosmosia.notional.ventures/cosmos/tx/v1beta1/txs?pagination.offset=0&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.authz.v1beta1.MsgExec%27&pagination.limit=100&events=message.sender=%27',
-    },
+    }, */
     cosmoshub: {
         name: "Cosmos Hub",
         coin: "Atom",
@@ -47,7 +47,7 @@ export const data = {
         loadVotes: 'https://cosmos.lcd.atomscan.com/cosmos/tx/v1beta1/txs?pagination.offset=0&pagination.limit=100&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.gov.v1beta1.MsgVote%27&events=message.sender=%27',
         loadAuthz: 'https://cosmos.lcd.atomscan.com/cosmos/tx/v1beta1/txs?pagination.offset=0&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.authz.v1beta1.MsgExec%27&pagination.limit=100&events=message.sender=%27',
     },
-    evmos: {
+    /* evmos: {
         name: "Evmos",
         coin: "EVMOS",
         denom: "aevmos",
@@ -62,7 +62,7 @@ export const data = {
         loadHeight: "https://rpc.cosmos.directory/evmos/abci_info?",
         loadVotes: 'https://rest.cosmos.directory/evmos/cosmos/tx/v1beta1/txs?pagination.offset=0&pagination.limit=100&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.gov.v1beta1.MsgVote%27&events=message.sender=%27',
         loadAuthz: 'https://rest.cosmos.directory/evmos/cosmos/tx/v1beta1/txs?pagination.offset=0&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.authz.v1beta1.MsgExec%27&pagination.limit=100&events=message.sender=%27',
-    },
+    }, */
     juno: {
         name: "Juno",
         coin: "Juno",
@@ -111,7 +111,7 @@ export const data = {
         loadVotes: 'https://rest.cosmos.directory/osmosis/cosmos/tx/v1beta1/txs?pagination.offset=0&pagination.limit=100&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.gov.v1beta1.MsgVote%27&events=message.sender=%27',
         loadAuthz: 'https://rest.cosmos.directory/osmosis/cosmos/tx/v1beta1/txs?pagination.offset=0&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.authz.v1beta1.MsgExec%27&pagination.limit=100&events=message.sender=%27',
     },
-    regen: {
+    /* regen: {
         name: "Regen",
         coin: "REGEN",
         denom: "uregen",
@@ -126,7 +126,7 @@ export const data = {
         loadHeight: "https://rpc.cosmos.directory/regen/abci_info?",
         loadVotes: 'https://rest.cosmos.directory/regen/cosmos/tx/v1beta1/txs?pagination.offset=0&pagination.limit=100&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.gov.v1beta1.MsgVote%27&events=message.sender=%27',
         loadAuthz: 'https://rest.cosmos.directory/regen/cosmos/tx/v1beta1/txs?pagination.offset=0&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.authz.v1beta1.MsgExec%27&pagination.limit=100&events=message.sender=%27',
-    },
+    }, */
     sommelier: {
         name: "Sommelier",
         coin: "SOMM",
@@ -143,7 +143,7 @@ export const data = {
         loadVotes: 'https://rest.cosmos.directory/sommelier/cosmos/tx/v1beta1/txs?pagination.offset=0&pagination.limit=100&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.gov.v1beta1.MsgVote%27&events=message.sender=%27',
         loadAuthz: 'https://rest.cosmos.directory/sommelier/cosmos/tx/v1beta1/txs?pagination.offset=0&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.authz.v1beta1.MsgExec%27&pagination.limit=100&events=message.sender=%27',
     },
-    stargaze: {
+    /* stargaze: {
         name: "Stargaze",
         coin: "STARS",
         denom: "ustars",
@@ -158,5 +158,5 @@ export const data = {
         loadHeight: "https://rpc.cosmos.directory/stargaze/abci_info?",
         loadVotes: 'https://rest.cosmos.directory/stargaze/cosmos/tx/v1beta1/txs?pagination.offset=0&pagination.limit=100&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.gov.v1beta1.MsgVote%27&events=message.sender=%27',
         loadAuthz: 'https://rest.cosmos.directory/stargaze/cosmos/tx/v1beta1/txs?pagination.offset=0&orderBy=ORDER_BY_DESC&events=message.action=%27/cosmos.authz.v1beta1.MsgExec%27&pagination.limit=100&events=message.sender=%27',
-    }, 
+    }, */
 }
